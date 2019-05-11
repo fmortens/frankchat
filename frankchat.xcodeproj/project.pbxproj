@@ -1,0 +1,454 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		563EFC3D8B81BF086DC4CB3F /* Pods_frankchat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DECAF0D05638D725F7DE7B /* Pods_frankchat.framework */; };
+		DE41439C228700E6009914CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE41439B228700E6009914CE /* AppDelegate.swift */; };
+		DE41439E228700E6009914CE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE41439D228700E6009914CE /* LoginViewController.swift */; };
+		DE4143A1228700E6009914CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE41439F228700E6009914CE /* Main.storyboard */; };
+		DE4143A3228700E7009914CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE4143A2228700E7009914CE /* Assets.xcassets */; };
+		DE4143A6228700E7009914CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE4143A4228700E7009914CE /* LaunchScreen.storyboard */; };
+		DE4143AE2287012D009914CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE4143AD2287012D009914CE /* GoogleService-Info.plist */; };
+		DE429CCE228759200004D31F /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE429CCD228759200004D31F /* StartupViewController.swift */; };
+		DE429CD022875A2E0004D31F /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE429CCF22875A2E0004D31F /* ChatListViewController.swift */; };
+		DEB5838A2287111A00B86A36 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB583892287111A00B86A36 /* FirebaseClient.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		32DECAF0D05638D725F7DE7B /* Pods_frankchat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_frankchat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B010D5CC4917A2CD68F8897 /* Pods-frankchat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-frankchat.debug.xcconfig"; path = "Target Support Files/Pods-frankchat/Pods-frankchat.debug.xcconfig"; sourceTree = "<group>"; };
+		B4CDE6B26EBC0521B45B9EF3 /* Pods-frankchat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-frankchat.release.xcconfig"; path = "Target Support Files/Pods-frankchat/Pods-frankchat.release.xcconfig"; sourceTree = "<group>"; };
+		DE414398228700E6009914CE /* frankchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = frankchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE41439B228700E6009914CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DE41439D228700E6009914CE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DE4143A0228700E6009914CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DE4143A2228700E7009914CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DE4143A5228700E7009914CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DE4143A7228700E7009914CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE4143AD2287012D009914CE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DE429CCD228759200004D31F /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
+		DE429CCF22875A2E0004D31F /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
+		DEB583892287111A00B86A36 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DE414395228700E6009914CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				563EFC3D8B81BF086DC4CB3F /* Pods_frankchat.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BBFA711DA8991FFA7DBF69E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32DECAF0D05638D725F7DE7B /* Pods_frankchat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6B8975E4C02DE826D7F8290 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4B010D5CC4917A2CD68F8897 /* Pods-frankchat.debug.xcconfig */,
+				B4CDE6B26EBC0521B45B9EF3 /* Pods-frankchat.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DE41438F228700E6009914CE = {
+			isa = PBXGroup;
+			children = (
+				DE41439A228700E6009914CE /* frankchat */,
+				DE414399228700E6009914CE /* Products */,
+				C6B8975E4C02DE826D7F8290 /* Pods */,
+				BBFA711DA8991FFA7DBF69E1 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DE414399228700E6009914CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE414398228700E6009914CE /* frankchat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE41439A228700E6009914CE /* frankchat */ = {
+			isa = PBXGroup;
+			children = (
+				DE41439B228700E6009914CE /* AppDelegate.swift */,
+				DE4143AD2287012D009914CE /* GoogleService-Info.plist */,
+				DE4143A7228700E7009914CE /* Info.plist */,
+				DE4143A2228700E7009914CE /* Assets.xcassets */,
+				DEB583882287110900B86A36 /* Model */,
+				DE429CD122875EA00004D31F /* View */,
+			);
+			path = frankchat;
+			sourceTree = "<group>";
+		};
+		DE429CD122875EA00004D31F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DE429CCD228759200004D31F /* StartupViewController.swift */,
+				DE41439D228700E6009914CE /* LoginViewController.swift */,
+				DE429CCF22875A2E0004D31F /* ChatListViewController.swift */,
+				DE41439F228700E6009914CE /* Main.storyboard */,
+				DE4143A4228700E7009914CE /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DEB583882287110900B86A36 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DEB583892287111A00B86A36 /* FirebaseClient.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DE414397228700E6009914CE /* frankchat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE4143AA228700E7009914CE /* Build configuration list for PBXNativeTarget "frankchat" */;
+			buildPhases = (
+				E994D335BEC334F5AA120816 /* [CP] Check Pods Manifest.lock */,
+				DE414394228700E6009914CE /* Sources */,
+				DE414395228700E6009914CE /* Frameworks */,
+				DE414396228700E6009914CE /* Resources */,
+				F49144351867E8B04D70DD50 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = frankchat;
+			productName = frankchat;
+			productReference = DE414398228700E6009914CE /* frankchat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE414390228700E6009914CE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Frank Mortensen";
+				TargetAttributes = {
+					DE414397228700E6009914CE = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+				};
+			};
+			buildConfigurationList = DE414393228700E6009914CE /* Build configuration list for PBXProject "frankchat" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DE41438F228700E6009914CE;
+			productRefGroup = DE414399228700E6009914CE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DE414397228700E6009914CE /* frankchat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DE414396228700E6009914CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE4143A6228700E7009914CE /* LaunchScreen.storyboard in Resources */,
+				DE4143AE2287012D009914CE /* GoogleService-Info.plist in Resources */,
+				DE4143A3228700E7009914CE /* Assets.xcassets in Resources */,
+				DE4143A1228700E6009914CE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E994D335BEC334F5AA120816 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-frankchat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F49144351867E8B04D70DD50 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-frankchat/Pods-frankchat-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-frankchat/Pods-frankchat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DE414394228700E6009914CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE429CCE228759200004D31F /* StartupViewController.swift in Sources */,
+				DE41439E228700E6009914CE /* LoginViewController.swift in Sources */,
+				DE41439C228700E6009914CE /* AppDelegate.swift in Sources */,
+				DEB5838A2287111A00B86A36 /* FirebaseClient.swift in Sources */,
+				DE429CD022875A2E0004D31F /* ChatListViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DE41439F228700E6009914CE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE4143A0228700E6009914CE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DE4143A4228700E7009914CE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE4143A5228700E7009914CE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DE4143A8228700E7009914CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DE4143A9228700E7009914CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DE4143AB228700E7009914CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B010D5CC4917A2CD68F8897 /* Pods-frankchat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NRNCDR832H;
+				INFOPLIST_FILE = frankchat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.mortensen.frankchat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DE4143AC228700E7009914CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4CDE6B26EBC0521B45B9EF3 /* Pods-frankchat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NRNCDR832H;
+				INFOPLIST_FILE = frankchat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.mortensen.frankchat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DE414393228700E6009914CE /* Build configuration list for PBXProject "frankchat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE4143A8228700E7009914CE /* Debug */,
+				DE4143A9228700E7009914CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE4143AA228700E7009914CE /* Build configuration list for PBXNativeTarget "frankchat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE4143AB228700E7009914CE /* Debug */,
+				DE4143AC228700E7009914CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DE414390228700E6009914CE /* Project object */;
+}
