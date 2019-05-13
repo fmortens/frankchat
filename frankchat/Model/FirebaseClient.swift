@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseAuth
+import Firebase
 
 class FirebaseClient {
     
@@ -24,11 +25,29 @@ class FirebaseClient {
             }
             
             if let email = authenticationResult.user.email {
-                // do something with the result
-                print("Logged in: \(email)")
+                // register the user with my user list in firebase
+                // so we can list the active users
+                
+                let db = Firestore.firestore()
+                let settings = db.settings
+                settings.areTimestampsInSnapshotsEnabled = true
+                db.settings = settings
+                
+                let usersRef = db.collection("active_users")
+                usersRef.document(email).setData( ["username": "", "lastLogin": FieldValue.serverTimestamp()], merge: true) { error in
+                    if let error = error {
+                        print("Error writing document: \(error)")
+                    } else {
+                        print("Document successfully written!")
+                    }
+                }
+
+                completion(true)
+            } else {
+                completion(false)
             }
             
-            completion(true)
+            
             
         }
         

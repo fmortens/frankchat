@@ -8,13 +8,32 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
 
 class ChatListViewController: UITableViewController {
     
     @IBOutlet weak var LogoutButton: UIBarButtonItem!
     
+    
+    
     override func viewDidLoad() {
         print("Showing chat list")
+        
+//        let db = Firestore.firestore()
+//        
+//        db.collection("chatroom").getDocuments() { (querySnapshot, err) in
+//            if let err = err {
+//                print("Error getting documents: \(err)")
+//            } else {
+//                for document in querySnapshot!.documents {
+//                    print("\(document.documentID) => \(document.data())")
+//                }
+//            }
+//        }
+        
+        
+        
+        
     }
     
     @IBAction func LogoutButtonTapped(_ sender: Any) {

@@ -8,6 +8,6 @@ target 'frankchat' do
   # Pods for frankchat
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
-  pod 'Firebase/Database'
+  pod 'Firebase/Firestore'
   
 end
