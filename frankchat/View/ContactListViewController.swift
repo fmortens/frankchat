@@ -9,11 +9,16 @@
 import UIKit
 import Firebase
 
+struct ActiveUser {
+    let username: String
+}
+
+
 class ContactListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var contactsTableView: UITableView!
     
-    var contactsIDArray = [String]()
+    var activeUsers = [ActiveUser]()
     var db: Firestore!
     
     override func viewDidLoad() {
@@ -28,7 +33,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         contactsTableView.dataSource = self
         contactsTableView.delegate = self
         
-        loadData()
+        //loadData()
         
         db.collection("active_users")
             .addSnapshotListener { querySnapshot, error in
@@ -40,19 +45,24 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
                 snapshot.documentChanges.forEach { diff in
                     
                     if (diff.type == .added) {
-                        print("New user: \(diff.document.data())")
+                        let activeUser = ActiveUser(username: diff.document.data()["username"] as! String)
+                        
+                        self.activeUsers.append(activeUser)
                     }
                     
                     if (diff.type == .modified) {
-                        print("Modified user: \(diff.document.data())")
+                        let activeUser = ActiveUser(username: diff.document.data()["username"] as! String)
+                        
+                        self.activeUsers[Int(diff.newIndex)] = activeUser
                     }
                     
                     if (diff.type == .removed) {
-                        print("Removed user: \(diff.document.data())")
+                        self.activeUsers.remove(at: Int(diff.oldIndex))
                     }
                     
-                    //self.contactsTableView.reloadData()
                 }
+                
+                self.contactsTableView.reloadData()
         }
     }
     
@@ -61,20 +71,22 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func loadData() {
-        db.collection("active_users").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    
-                    self.contactsIDArray.append(document.documentID)
-                }
+        db.collection("active_users").getDocuments() { (querySnapshot, error) in
+            
+            guard let snapshot = querySnapshot else {
+                print("Error fetching snapshots: \(error!)")
+                return
             }
-            print(self.contactsIDArray)
+            
+            for document in snapshot.documents {
+                let data = document.data()
+                let activeUser = ActiveUser(username: data["username"] as! String)
+                    
+                self.activeUsers.append(activeUser)
+            }
             
             self.contactsTableView.reloadData()
         }
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -83,17 +95,17 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Tableview setup \(contactsIDArray.count)")
-        return contactsIDArray.count
+        print("Tableview setup \(activeUsers.count)")
+        return activeUsers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell")!
-        let contact = contactsIDArray[indexPath.row]
+        let activeUser = activeUsers[indexPath.row]
         
-        cell.textLabel!.text = contact
+        cell.textLabel!.text = activeUser.username
         
-        print("Array is populated \(contactsIDArray)")
+        print("Array is populated \(activeUsers)")
         
         return cell
     }

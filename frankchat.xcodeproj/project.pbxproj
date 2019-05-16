@@ -101,8 +101,8 @@
 			children = (
 				DE429CCD228759200004D31F /* StartupViewController.swift */,
 				DE41439D228700E6009914CE /* LoginViewController.swift */,
-				DE429CCF22875A2E0004D31F /* ChatListViewController.swift */,
 				DE429CD3228842F60004D31F /* ContactListViewController.swift */,
+				DE429CCF22875A2E0004D31F /* ChatListViewController.swift */,
 				DE41439F228700E6009914CE /* Main.storyboard */,
 				DE4143A4228700E7009914CE /* LaunchScreen.storyboard */,
 			);

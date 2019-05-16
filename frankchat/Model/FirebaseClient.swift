@@ -33,14 +33,16 @@ class FirebaseClient {
                 settings.areTimestampsInSnapshotsEnabled = true
                 db.settings = settings
                 
-                let usersRef = db.collection("active_users")
-                usersRef.document(email).setData( ["username": "", "lastLogin": FieldValue.serverTimestamp()], merge: true) { error in
-                    if let error = error {
-                        print("Error writing document: \(error)")
-                    } else {
-                        print("Document successfully written!")
-                    }
-                }
+//                let usersRef = db.collection("active_users")
+//                usersRef.document(email).setData( ["username": "", "lastLogin": FieldValue.serverTimestamp()], merge: true) { error in
+//                    if let error = error {
+//                        print("Error writing document: \(error)")
+//                    } else {
+//                        print("Document successfully written!")
+//                    }
+//                }
+                
+                print("Logged in with \(email)")
 
                 completion(true)
             } else {
