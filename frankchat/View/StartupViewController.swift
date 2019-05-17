@@ -13,12 +13,7 @@ class StartupViewController: UIViewController {
     
     override func viewDidLoad() {
         
-        
-   
-    
         if Auth.auth().currentUser == nil {
-            print("User is not logged in")
-            
             DispatchQueue.main.async {
                 self.performSegue(
                     withIdentifier: "UserIsNotLoggedIn",
@@ -27,16 +22,14 @@ class StartupViewController: UIViewController {
             }
             
         } else {
-            print("User is logged in")
-            
             DispatchQueue.main.async {
                 self.performSegue(
                     withIdentifier: "UserIsLoggedIn",
                     sender: nil
                 )
             }
-            
         }
+        
     }
-
+    
 }

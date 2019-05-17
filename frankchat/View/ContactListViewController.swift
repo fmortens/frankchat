@@ -9,13 +9,9 @@
 import UIKit
 import Firebase
 
-struct ActiveUser {
-    let username: String
-}
-
-
 class ContactListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var NewChatButton: UIBarButtonItem!
     @IBOutlet weak var contactsTableView: UITableView!
     
     var activeUsers = [ActiveUser]()
@@ -33,8 +29,6 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         contactsTableView.dataSource = self
         contactsTableView.delegate = self
         
-        //loadData()
-        
         db.collection("active_users")
             .addSnapshotListener { querySnapshot, error in
                 guard let snapshot = querySnapshot else {
@@ -45,13 +39,21 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
                 snapshot.documentChanges.forEach { diff in
                     
                     if (diff.type == .added) {
-                        let activeUser = ActiveUser(username: diff.document.data()["username"] as! String)
+                        let activeUser = ActiveUser(
+                            email: diff.document.documentID,
+                            username: diff.document.data()["username"] as? String,
+                            loggedIn: (diff.document.data()["logged_in"] as? Bool)!
+                        )
                         
                         self.activeUsers.append(activeUser)
                     }
                     
                     if (diff.type == .modified) {
-                        let activeUser = ActiveUser(username: diff.document.data()["username"] as! String)
+                        let activeUser = ActiveUser(
+                            email: diff.document.documentID,
+                            username: diff.document.data()["username"] as? String,
+                            loggedIn: (diff.document.data()["logged_in"] as? Bool)!
+                        )
                         
                         self.activeUsers[Int(diff.newIndex)] = activeUser
                     }
@@ -80,7 +82,12 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
             
             for document in snapshot.documents {
                 let data = document.data()
-                let activeUser = ActiveUser(username: data["username"] as! String)
+                
+                let activeUser = ActiveUser(
+                    email: document.documentID,
+                    username: data["username"] as? String,
+                    loggedIn: (data["logged_in"] as? Bool)!
+                )
                     
                 self.activeUsers.append(activeUser)
             }
@@ -90,24 +97,80 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Tableview setup \(activeUsers.count)")
-        return activeUsers.count
+       return activeUsers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell")!
         let activeUser = activeUsers[indexPath.row]
         
-        cell.textLabel!.text = activeUser.username
+        if let username = activeUser.username {
+            cell.textLabel!.text = username
+        } else {
+            cell.textLabel!.text = activeUser.email
+        }
         
-        print("Array is populated \(activeUsers)")
+        let firebaseAuth = Auth.auth()
+        if firebaseAuth.currentUser?.email == activeUser.email {
+            
+            cell.textLabel?.font = UIFont(
+                descriptor: UIFontDescriptor().withSymbolicTraits([.traitBold])!,
+                size: 17
+            )
+            
+        }
+        
+        if !activeUser.loggedIn {
+            
+            cell.textLabel?.textColor = UIColor.red
+            cell.textLabel?.font = UIFont(
+                descriptor: UIFontDescriptor().withSymbolicTraits([.traitItalic])!,
+                size: 17
+            )
+            
+        } else {
+            
+            cell.textLabel?.textColor = UIColor.green
+            cell.textLabel?.font = UIFont(
+                descriptor: UIFontDescriptor().withSymbolicTraits([.traitBold])!,
+                size: 17
+            )
+            
+        }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let user = activeUsers[indexPath.row]
+        
+        
+            
+            print("Just selected \(user)")
+            
+        
+        
+    }
+    
+    @IBAction func NewChatButtonTapped(_ sender: Any) {
+        
+        
+        if let selectedIndexPath = contactsTableView.indexPathForSelectedRow {
+            
+            let user = activeUsers[selectedIndexPath.row]
+            
+            print("Create new chat please, with \(user)")
+            
+            self.contactsTableView.deselectRow(at: selectedIndexPath, animated: true)
+        }
+        
+        
+        
     }
     
 }

@@ -144,8 +144,15 @@
                             <outlet property="delegate" destination="eke-Er-8mV" id="0W0-EO-ak0"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Contact List" id="fqK-1U-tWh"/>
+                    <navigationItem key="navigationItem" title="Contact List" id="fqK-1U-tWh">
+                        <barButtonItem key="leftBarButtonItem" title="New" id="kLm-vg-Gll" userLabel="New">
+                            <connections>
+                                <action selector="NewChatButtonTapped:" destination="eke-Er-8mV" id="89g-1W-aR3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="NewChatButton" destination="kLm-vg-Gll" id="T4u-fg-eAF"/>
                         <outlet property="contactsTableView" destination="AwK-qJ-lxG" id="TXW-lE-WE5"/>
                     </connections>
                 </tableViewController>

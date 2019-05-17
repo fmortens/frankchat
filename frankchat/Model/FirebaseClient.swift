@@ -12,7 +12,11 @@ import Firebase
 
 class FirebaseClient {
     
-    class func login(username: String, password: String, completion: @escaping (Bool) -> Void) {
+    class func login(
+        username: String,
+        password: String,
+        completion: @escaping (Bool) -> Void
+    ) {
         
         Auth.auth().signIn(
             withEmail: username,
@@ -33,24 +37,66 @@ class FirebaseClient {
                 settings.areTimestampsInSnapshotsEnabled = true
                 db.settings = settings
                 
-//                let usersRef = db.collection("active_users")
-//                usersRef.document(email).setData( ["username": "", "lastLogin": FieldValue.serverTimestamp()], merge: true) { error in
-//                    if let error = error {
-//                        print("Error writing document: \(error)")
-//                    } else {
-//                        print("Document successfully written!")
-//                    }
-//                }
+                let usersRef = db.collection("active_users")
                 
-                print("Logged in with \(email)")
-
+                usersRef.document(email).setData(
+                    [
+                        "logged_in": true,
+                        "last_login": FieldValue.serverTimestamp()
+                    ],
+                    merge: true
+                ) { error in
+                    if let error = error {
+                        print("Error writing document: \(error)")
+                    } else {
+                        print("Document successfully written!")
+                    }
+                }
+                
                 completion(true)
+                
             } else {
                 completion(false)
             }
+        }
+    }
+    
+    class func logout(
+        completion: @escaping (Bool) -> Void
+    ) {
+        
+        print("We want to log out")
+        
+        let firebaseAuth = Auth.auth()
+        let db = Firestore.firestore()
+        
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        let usersRef = db.collection("active_users")
+        
+        usersRef.document(
+            (firebaseAuth.currentUser?.email!)!
+        ).setData(["logged_in": false], merge: true) { error in
             
-            
-            
+            if let error = error {
+                print("Error writing document: \(error)")
+            } else {
+                print("Document successfully written!")
+                
+                do {
+                    try firebaseAuth.signOut()
+                    
+                    // Remove observer
+                    
+                    
+                    completion(true)
+                } catch let signOutError as NSError {
+                    print ("Error signing out: %@", signOutError)
+                    completion(false)
+                }
+            }
         }
         
     }
