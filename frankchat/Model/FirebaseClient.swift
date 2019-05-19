@@ -37,13 +37,10 @@ class FirebaseClient {
                 settings.areTimestampsInSnapshotsEnabled = true
                 db.settings = settings
                 
-                let usersRef = db.collection("active_users")
+                let contactsRef = db.collection("contacts")
                 
-                usersRef.document(email).setData(
-                    [
-                        "logged_in": true,
-                        "last_login": FieldValue.serverTimestamp()
-                    ],
+                contactsRef.document(email).setData(
+                    ["last_login": FieldValue.serverTimestamp()],
                     merge: true
                 ) { error in
                     if let error = error {
@@ -74,9 +71,9 @@ class FirebaseClient {
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
-        let usersRef = db.collection("active_users")
+        let contactsRef = db.collection("contacts")
         
-        usersRef.document(
+        contactsRef.document(
             (firebaseAuth.currentUser?.email!)!
         ).setData(["logged_in": false], merge: true) { error in
             
@@ -98,6 +95,83 @@ class FirebaseClient {
                 }
             }
         }
+        
+    }
+    
+    class func monitorContactChanges(
+        completion: @escaping (DocumentChangeType, DocumentChange) -> Void) {
+        
+        print("Showing Contact List")
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        db
+            .collection("contacts")
+            .addSnapshotListener { querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching snapshots: \(error!)")
+                    return
+                }
+                
+                snapshot.documentChanges.forEach { change in
+                    completion(change.type, change)
+                }
+        }
+        
+    }
+    
+    
+    class func setActive() {
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        
+        if let authenticatedUser = Auth.auth().currentUser {
+            let contactsRef = db.collection("contacts")
+            
+            contactsRef.document(
+                authenticatedUser.email!
+                ).setData(["logged_in": true], merge: true) { error in
+                    
+                    if let error = error {
+                        print("Error writing document: \(error)")
+                    } else {
+                        print("Document successfully written!")
+                    }
+            }
+        }
+        
+        
+    }
+    
+    class func setInactive() {
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        if let authenticatedUser = Auth.auth().currentUser {
+            let contactsRef = db.collection("contacts")
+            
+            contactsRef.document(
+                authenticatedUser.email!
+                ).setData(["logged_in": false], merge: true) { error in
+                    
+                    if let error = error {
+                        print("Error writing document: \(error)")
+                    } else {
+                        print("Document successfully written!")
+                    }
+            }
+        }
+        
         
     }
     

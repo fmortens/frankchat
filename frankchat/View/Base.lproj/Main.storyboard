@@ -154,11 +154,27 @@
                     <connections>
                         <outlet property="NewChatButton" destination="kLm-vg-Gll" id="T4u-fg-eAF"/>
                         <outlet property="contactsTableView" destination="AwK-qJ-lxG" id="TXW-lE-WE5"/>
+                        <segue destination="IoR-dO-YCN" kind="show" identifier="presentChatView" id="FNR-VF-ov1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gW7-Pc-DJk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2943.4782608695655" y="-755.35714285714278"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ACE-77-8Ww">
+            <objects>
+                <viewController id="IoR-dO-YCN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rnu-KL-d0p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ABb-el-tyF"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hmz-BY-Rqu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1948" y="-755"/>
         </scene>
         <!--Message List-->
         <scene sceneID="cXu-IO-TFw">
@@ -236,6 +252,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Rqe-eM-g8z"/>
-        <segue reference="T98-eG-Zxq"/>
+        <segue reference="tbb-dX-sdc"/>
     </inferredMetricsTieBreakers>
 </document>

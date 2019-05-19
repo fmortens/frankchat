@@ -14,108 +14,80 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var NewChatButton: UIBarButtonItem!
     @IBOutlet weak var contactsTableView: UITableView!
     
-    var activeUsers = [ActiveUser]()
+    var contacts = [Contact]()
     var db: Firestore!
     
     override func viewDidLoad() {
         
-        print("Showing Contact List")
-        
-        db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
-
         contactsTableView.dataSource = self
         contactsTableView.delegate = self
         
-        db.collection("active_users")
-            .addSnapshotListener { querySnapshot, error in
-                guard let snapshot = querySnapshot else {
-                    print("Error fetching snapshots: \(error!)")
-                    return
-                }
-                
-                snapshot.documentChanges.forEach { diff in
-                    
-                    if (diff.type == .added) {
-                        let activeUser = ActiveUser(
-                            email: diff.document.documentID,
-                            username: diff.document.data()["username"] as? String,
-                            loggedIn: (diff.document.data()["logged_in"] as? Bool)!
-                        )
-                        
-                        self.activeUsers.append(activeUser)
-                    }
-                    
-                    if (diff.type == .modified) {
-                        let activeUser = ActiveUser(
-                            email: diff.document.documentID,
-                            username: diff.document.data()["username"] as? String,
-                            loggedIn: (diff.document.data()["logged_in"] as? Bool)!
-                        )
-                        
-                        self.activeUsers[Int(diff.newIndex)] = activeUser
-                    }
-                    
-                    if (diff.type == .removed) {
-                        self.activeUsers.remove(at: Int(diff.oldIndex))
-                    }
-                    
-                }
-                
-                self.contactsTableView.reloadData()
-        }
+        FirebaseClient.monitorContactChanges(completion: handleContactListChanges(changeType:change:))
+        
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         contactsTableView.reloadData()
     }
     
-    func loadData() {
-        db.collection("active_users").getDocuments() { (querySnapshot, error) in
+    
+    func handleContactListChanges(changeType: DocumentChangeType, change: DocumentChange) {
+        
+        if (changeType == .added) {
+            let contact = Contact(
+                email: change.document.documentID,
+                username: change.document.data()["username"] as? String,
+                loggedIn: (change.document.data()["logged_in"] as? Bool)!
+            )
             
-            guard let snapshot = querySnapshot else {
-                print("Error fetching snapshots: \(error!)")
-                return
-            }
-            
-            for document in snapshot.documents {
-                let data = document.data()
-                
-                let activeUser = ActiveUser(
-                    email: document.documentID,
-                    username: data["username"] as? String,
-                    loggedIn: (data["logged_in"] as? Bool)!
-                )
-                    
-                self.activeUsers.append(activeUser)
-            }
-            
-            self.contactsTableView.reloadData()
+            self.contacts.append(contact)
         }
+        
+        if (changeType == .modified) {
+            
+            let contact = Contact(
+                email: change.document.documentID,
+                username: change.document.data()["username"] as? String,
+                loggedIn: (change.document.data()["logged_in"] as? Bool)!
+            )
+            
+            self.contacts[Int(change.newIndex)] = contact
+            
+        }
+        
+        if (changeType == .removed) {
+            self.contacts.remove(at: Int(change.oldIndex))
+        }
+        
+        self.contactsTableView.reloadData()
+        
     }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return activeUsers.count
+       return contacts.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell")!
-        let activeUser = activeUsers[indexPath.row]
         
-        if let username = activeUser.username {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell")!
+        let contact = contacts[indexPath.row]
+        
+        if let username = contact.username {
             cell.textLabel!.text = username
         } else {
-            cell.textLabel!.text = activeUser.email
+            cell.textLabel!.text = contact.email
         }
         
         let firebaseAuth = Auth.auth()
-        if firebaseAuth.currentUser?.email == activeUser.email {
+        if firebaseAuth.currentUser?.email == contact.email {
             
             cell.textLabel?.font = UIFont(
                 descriptor: UIFontDescriptor().withSymbolicTraits([.traitBold])!,
@@ -124,7 +96,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
             
         }
         
-        if !activeUser.loggedIn {
+        if !contact.loggedIn {
             
             cell.textLabel?.textColor = UIColor.red
             cell.textLabel?.font = UIFont(
@@ -143,34 +115,30 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         return cell
+        
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let user = activeUsers[indexPath.row]
+        let contact = contacts[indexPath.row]
         
-        
-            
-            print("Just selected \(user)")
-            
-        
-        
+        print("Just selected \(contact)")
+
     }
     
+    
     @IBAction func NewChatButtonTapped(_ sender: Any) {
-        
-        
         if let selectedIndexPath = contactsTableView.indexPathForSelectedRow {
+            let contact = contacts[selectedIndexPath.row]
             
-            let user = activeUsers[selectedIndexPath.row]
+            print("Create new chat please, with \(contact)")
             
-            print("Create new chat please, with \(user)")
+             self.performSegue(withIdentifier: "presentChatView", sender: nil)
+            
             
             self.contactsTableView.deselectRow(at: selectedIndexPath, animated: true)
         }
-        
-        
-        
     }
     
 }

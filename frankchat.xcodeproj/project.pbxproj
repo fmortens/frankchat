@@ -17,7 +17,7 @@
 		DE429CCE228759200004D31F /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE429CCD228759200004D31F /* StartupViewController.swift */; };
 		DE429CD022875A2E0004D31F /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE429CCF22875A2E0004D31F /* ChatListViewController.swift */; };
 		DE429CD4228842F60004D31F /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE429CD3228842F60004D31F /* ContactListViewController.swift */; };
-		DE5A9FE6228F3D04000F2480 /* ActiveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5A9FE5228F3D04000F2480 /* ActiveUser.swift */; };
+		DE5A9FE6228F3D04000F2480 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5A9FE5228F3D04000F2480 /* Contact.swift */; };
 		DEB5838A2287111A00B86A36 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB583892287111A00B86A36 /* FirebaseClient.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +36,7 @@
 		DE429CCD228759200004D31F /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		DE429CCF22875A2E0004D31F /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		DE429CD3228842F60004D31F /* ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewController.swift; sourceTree = "<group>"; };
-		DE5A9FE5228F3D04000F2480 /* ActiveUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveUser.swift; sourceTree = "<group>"; };
+		DE5A9FE5228F3D04000F2480 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		DEB583892287111A00B86A36 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				DEB583892287111A00B86A36 /* FirebaseClient.swift */,
-				DE5A9FE5228F3D04000F2480 /* ActiveUser.swift */,
+				DE5A9FE5228F3D04000F2480 /* Contact.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,7 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE5A9FE6228F3D04000F2480 /* ActiveUser.swift in Sources */,
+				DE5A9FE6228F3D04000F2480 /* Contact.swift in Sources */,
 				DE429CCE228759200004D31F /* StartupViewController.swift in Sources */,
 				DE41439E228700E6009914CE /* LoginViewController.swift in Sources */,
 				DE41439C228700E6009914CE /* AppDelegate.swift in Sources */,

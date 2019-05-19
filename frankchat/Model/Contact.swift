@@ -1,5 +1,5 @@
 //
-//  ActiveUser.swift
+//  Contact.swift
 //  frankchat
 //
 //  Created by Frank Mortensen on 17/05/2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ActiveUser {
+struct Contact {
     let email: String
     let username: String?
     let loggedIn: Bool
