@@ -179,18 +179,27 @@
         <!--Message List-->
         <scene sceneID="cXu-IO-TFw">
             <objects>
-                <tableViewController id="JNF-0A-gXW" customClass="ChatListViewController" customModule="frankchat" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="JNF-0A-gXW" customClass="MessageListViewController" customModule="frankchat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WLw-t1-Wf1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="2rM-fz-chb">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" textLabel="dbE-6w-nvf" rowHeight="130" style="IBUITableViewCellStyleDefault" id="2rM-fz-chb">
+                                <rect key="frame" x="0.0" y="28" width="414" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2rM-fz-chb" id="Lf5-Wh-fBf">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="129.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dbE-6w-nvf">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="129.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -208,12 +217,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="LogoutButton" destination="uUu-7Y-2rc" id="vjF-II-QRv"/>
+                        <outlet property="MessageListView" destination="WLw-t1-Wf1" id="Z34-yd-7Zn"/>
                         <segue destination="BYZ-38-t0r" kind="showDetail" identifier="UserIsLoggedOut" id="Rqe-eM-g8z"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ghs-Kd-SKd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2949" y="57"/>
+            <point key="canvasLocation" x="-2949.275362318841" y="56.919642857142854"/>
         </scene>
         <!--Messages-->
         <scene sceneID="dmR-Rk-VJ8">
@@ -252,6 +262,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Rqe-eM-g8z"/>
-        <segue reference="tbb-dX-sdc"/>
+        <segue reference="T98-eG-Zxq"/>
     </inferredMetricsTieBreakers>
 </document>

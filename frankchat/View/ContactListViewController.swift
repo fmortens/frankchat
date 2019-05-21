@@ -15,7 +15,6 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var contactsTableView: UITableView!
     
     var contacts = [Contact]()
-    var db: Firestore!
     
     override func viewDidLoad() {
         

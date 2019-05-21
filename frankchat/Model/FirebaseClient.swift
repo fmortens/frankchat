@@ -175,4 +175,28 @@ class FirebaseClient {
         
     }
     
+    
+    class func monitorMessageChanges(
+        completion: @escaping (DocumentChangeType, DocumentChange) -> Void) {
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        db
+            .collection("messages")
+            .addSnapshotListener { querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching snapshots: \(error!)")
+                    return
+                }
+                
+                snapshot.documentChanges.forEach { change in
+                    completion(change.type, change)
+                }
+        }
+        
+    }
+    
 }
