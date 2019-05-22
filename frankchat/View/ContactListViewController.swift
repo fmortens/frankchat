@@ -11,7 +11,7 @@ import Firebase
 
 class ContactListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var NewChatButton: UIBarButtonItem!
+    @IBOutlet weak var newChatButton: UIBarButtonItem!
     @IBOutlet weak var contactsTableView: UITableView!
     
     var contacts = [Contact]()

@@ -6,10 +6,10 @@
 //  Copyright © 2019 Frank Mortensen. All rights reserved.
 //
 
-import Foundation
-
 struct Contact {
+    
     let email: String
     let username: String?
     let loggedIn: Bool
+    
 }

@@ -185,7 +185,7 @@ class FirebaseClient {
         db.settings = settings
         
         db
-            .collection("messages")
+            .collection("messages").order(by: "timestamp", descending: true)
             .addSnapshotListener { querySnapshot, error in
                 guard let snapshot = querySnapshot else {
                     print("Error fetching snapshots: \(error!)")

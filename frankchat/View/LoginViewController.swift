@@ -14,12 +14,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        print("Showing login screen")
-    }
-
     @IBAction func loginButtonPressed(_ sender: Any) {
         
         if let username = emailTextField.text,

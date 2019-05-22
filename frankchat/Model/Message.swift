@@ -6,9 +6,6 @@
 //  Copyright © 2019 Frank Mortensen. All rights reserved.
 //
 
-import Foundation
-
-
 struct Message {
     
     let sender: String

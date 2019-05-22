@@ -12,21 +12,20 @@ import Firebase
 
 class MessageListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var LogoutButton: UIBarButtonItem!
-    @IBOutlet var MessageListView: UITableView!
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
+    @IBOutlet var messageListView: UITableView!
     
     var messages = [Message]()
     
+    
     override func viewDidLoad() {
         
+        messageListView.dataSource = self
+        messageListView.delegate = self
             
-            MessageListView.dataSource = self
-            MessageListView.delegate = self
-            
-            FirebaseClient.monitorMessageChanges(completion: handleMessageChanges(changeType:change:))
-            
-        
+        FirebaseClient.monitorMessageChanges(completion: handleMessageChanges(changeType:change:))
     }
+    
     
     func handleMessageChanges(changeType: DocumentChangeType, change: DocumentChange) {
         
@@ -56,30 +55,36 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
             self.messages.remove(at: Int(change.oldIndex))
         }
         
-        self.MessageListView.reloadData()
+        self.messageListView.reloadData()
         
     }
-    
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return messages.count
+        
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
         let message = messages[indexPath.row]
-        
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")!
         
-        cell.textLabel!.text = message.sender
-        
-        
+        cell.textLabel!.text = message.contentText
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let message = messages[indexPath.row]
+        
+        print("Just selected \(message)")
+        
+    }
+    
     
     @IBAction func LogoutButtonTapped(_ sender: Any) {
         
@@ -90,8 +95,7 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
                 print("Ups! Can't log out?")
             }
         }
-        
-        
     }
+    
 }
 
