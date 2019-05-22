@@ -10,6 +10,6 @@ struct Message {
     
     let sender: String
     let receiver: String
-    let contentText: String?
+    let content: String?
     
 }

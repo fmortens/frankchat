@@ -15,7 +15,7 @@
 		DE4143A6228700E7009914CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE4143A4228700E7009914CE /* LaunchScreen.storyboard */; };
 		DE4143AE2287012D009914CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE4143AD2287012D009914CE /* GoogleService-Info.plist */; };
 		DE429CCE228759200004D31F /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE429CCD228759200004D31F /* StartupViewController.swift */; };
-		DE429CD022875A2E0004D31F /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE429CCF22875A2E0004D31F /* MessageListViewController.swift */; };
+		DE429CD022875A2E0004D31F /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE429CCF22875A2E0004D31F /* ChatListViewController.swift */; };
 		DE429CD4228842F60004D31F /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE429CD3228842F60004D31F /* ContactListViewController.swift */; };
 		DE5A9FE6228F3D04000F2480 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5A9FE5228F3D04000F2480 /* Contact.swift */; };
 		DE9E50BB229480A200E3AA71 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9E50BA229480A200E3AA71 /* Message.swift */; };
@@ -35,7 +35,7 @@
 		DE4143A7228700E7009914CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE4143AD2287012D009914CE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE429CCD228759200004D31F /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
-		DE429CCF22875A2E0004D31F /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
+		DE429CCF22875A2E0004D31F /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		DE429CD3228842F60004D31F /* ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewController.swift; sourceTree = "<group>"; };
 		DE5A9FE5228F3D04000F2480 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		DE9E50BA229480A200E3AA71 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 				DE429CCD228759200004D31F /* StartupViewController.swift */,
 				DE41439D228700E6009914CE /* LoginViewController.swift */,
 				DE429CD3228842F60004D31F /* ContactListViewController.swift */,
-				DE429CCF22875A2E0004D31F /* MessageListViewController.swift */,
+				DE429CCF22875A2E0004D31F /* ChatListViewController.swift */,
 				DE41439F228700E6009914CE /* Main.storyboard */,
 				DE4143A4228700E7009914CE /* LaunchScreen.storyboard */,
 			);
@@ -280,7 +280,7 @@
 				DE41439C228700E6009914CE /* AppDelegate.swift in Sources */,
 				DEB5838A2287111A00B86A36 /* FirebaseClient.swift in Sources */,
 				DE9E50BB229480A200E3AA71 /* Message.swift in Sources */,
-				DE429CD022875A2E0004D31F /* MessageListViewController.swift in Sources */,
+				DE429CD022875A2E0004D31F /* ChatListViewController.swift in Sources */,
 				DE429CD4228842F60004D31F /* ContactListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

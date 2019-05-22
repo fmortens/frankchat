@@ -179,7 +179,7 @@
         <!--Message List-->
         <scene sceneID="cXu-IO-TFw">
             <objects>
-                <tableViewController id="JNF-0A-gXW" customClass="MessageListViewController" customModule="frankchat" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="JNF-0A-gXW" customClass="ChatListViewController" customModule="frankchat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WLw-t1-Wf1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,8 +216,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="chatListView" destination="WLw-t1-Wf1" id="Z34-yd-7Zn"/>
                         <outlet property="logoutButton" destination="uUu-7Y-2rc" id="vjF-II-QRv"/>
-                        <outlet property="messageListView" destination="WLw-t1-Wf1" id="Z34-yd-7Zn"/>
                         <segue destination="BYZ-38-t0r" kind="showDetail" identifier="UserIsLoggedOut" id="Rqe-eM-g8z"/>
                         <segue destination="IoR-dO-YCN" kind="show" identifier="presentChatView" id="TSL-EA-rrb"/>
                     </connections>
