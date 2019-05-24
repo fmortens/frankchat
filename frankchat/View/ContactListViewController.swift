@@ -15,14 +15,13 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var contactsTableView: UITableView!
     
     var contacts = [Contact]()
+    var selectedContact: Contact?
     
     override func viewDidLoad() {
-        
         contactsTableView.dataSource = self
         contactsTableView.delegate = self
         
         FirebaseClient.monitorContactChanges(completion: handleContactListChanges(changeType:change:))
-        
     }
     
     
@@ -32,7 +31,6 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func handleContactListChanges(changeType: DocumentChangeType, change: DocumentChange) {
-        
         if (changeType == .added) {
             let contact = Contact(
                 email: change.document.documentID,
@@ -44,7 +42,6 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         if (changeType == .modified) {
-            
             let contact = Contact(
                 email: change.document.documentID,
                 username: change.document.data()["username"] as? String,
@@ -52,7 +49,6 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
             )
             
             self.contacts[Int(change.newIndex)] = contact
-            
         }
         
         if (changeType == .removed) {
@@ -60,7 +56,6 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         self.contactsTableView.reloadData()
-        
     }
     
     
@@ -96,21 +91,17 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         if !contact.loggedIn {
-            
             cell.textLabel?.textColor = UIColor.red
             cell.textLabel?.font = UIFont(
                 descriptor: UIFontDescriptor().withSymbolicTraits([.traitItalic])!,
                 size: 17
             )
-            
         } else {
-            
             cell.textLabel?.textColor = UIColor.green
             cell.textLabel?.font = UIFont(
                 descriptor: UIFontDescriptor().withSymbolicTraits([.traitBold])!,
                 size: 17
             )
-            
         }
         
         return cell
@@ -119,23 +110,30 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let contact = contacts[indexPath.row]
-        
-        print("Just selected \(contact)")
-
+        self.selectedContact = contacts[indexPath.row]
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Setting the chat id if this is a ChatViewController
+        if  let contact = self.selectedContact,
+            let vc = segue.destination as? ChatViewController {
+            
+            
+            vc.chat = Chat(
+                id: nil,
+                sender: (Auth.auth().currentUser?.email)!,
+                receiver: contact.email,
+                updated: nil
+            )
+        }
     }
     
     
     @IBAction func NewChatButtonTapped(_ sender: Any) {
         if let selectedIndexPath = contactsTableView.indexPathForSelectedRow {
-            let contact = contacts[selectedIndexPath.row]
-            
-            print("Create new chat please, with \(contact)")
-            
-             self.performSegue(withIdentifier: "presentChatView", sender: nil)
-            
-            
+            self.selectedContact = contacts[selectedIndexPath.row]
+            self.performSegue(withIdentifier: "PresentChatView", sender: nil)
             self.contactsTableView.deselectRow(at: selectedIndexPath, animated: true)
         }
     }

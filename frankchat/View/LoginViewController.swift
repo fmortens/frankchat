@@ -27,7 +27,6 @@ class LoginViewController: UIViewController {
                         self.performSegue(withIdentifier: "UserLoggedIn", sender: nil)
                     }
                     
-                    
                 } else {
                     print("Login failure")
                 }

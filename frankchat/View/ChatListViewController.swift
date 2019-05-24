@@ -12,10 +12,10 @@ import Firebase
 
 
 struct Chat {
-    let id: String
+    let id: String?
     let sender: String
     let receiver: String
-    let updated: Timestamp
+    let updated: Timestamp?
 }
 
 
@@ -25,7 +25,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var chatListView: UITableView!
     
     var chats = [Chat]()
-    
+    var selectedChat: Chat?
     
     override func viewDidLoad() {
         
@@ -92,31 +92,37 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let chat = chats[indexPath.row]
+        self.selectedChat = chats[indexPath.row]
         
-        print("Just selected \(chat)")
+//        FirebaseClient.getLatestChatMessage(documentId: chat.id) { (success, snapshot) in
+//
+//            guard let success = success else {
+//                print("FAILURE")
+//                return
+//            }
+//
+//            if success {
+//                print("successful")
+//
+//                if let snapshot = snapshot {
+//
+//                    for document in snapshot.documents {
+//                        print("document is -> \(document.data()))")
+//                    }
+//                }
+//            }
+//
+//        }
         
-        FirebaseClient.getLatestChatMessage(documentId: chat.id) { (success, snapshot) in
-            
-            guard let success = success else {
-                print("FAILURE")
-                return
-            }
-            
-            if success {
-                print("successful")
-                
-                if let snapshot = snapshot {
-                    
-                    for document in snapshot.documents {
-                        print("document is -> \(document.data()))")
-                    }
-                }
-            }
-            
+        self.performSegue(withIdentifier: "PresentChatView", sender: nil)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Setting the chat id if this is a ChatViewController
+        if let vc = segue.destination as? ChatViewController {
+            vc.chat = self.selectedChat
         }
-        
-        
     }
     
     

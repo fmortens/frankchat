@@ -20,6 +20,7 @@
 		DE5A9FE6228F3D04000F2480 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5A9FE5228F3D04000F2480 /* Contact.swift */; };
 		DE9E50BB229480A200E3AA71 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9E50BA229480A200E3AA71 /* Message.swift */; };
 		DEB5838A2287111A00B86A36 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB583892287111A00B86A36 /* FirebaseClient.swift */; };
+		DEFE7D2822985A5C00E2B2A0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE7D2722985A5C00E2B2A0 /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		DE5A9FE5228F3D04000F2480 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		DE9E50BA229480A200E3AA71 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		DEB583892287111A00B86A36 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		DEFE7D2722985A5C00E2B2A0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				DE429CCD228759200004D31F /* StartupViewController.swift */,
+				DEFE7D2722985A5C00E2B2A0 /* ChatViewController.swift */,
 				DE41439D228700E6009914CE /* LoginViewController.swift */,
 				DE429CD3228842F60004D31F /* ContactListViewController.swift */,
 				DE429CCF22875A2E0004D31F /* ChatListViewController.swift */,
@@ -281,6 +284,7 @@
 				DEB5838A2287111A00B86A36 /* FirebaseClient.swift in Sources */,
 				DE9E50BB229480A200E3AA71 /* Message.swift in Sources */,
 				DE429CD022875A2E0004D31F /* ChatListViewController.swift in Sources */,
+				DEFE7D2822985A5C00E2B2A0 /* ChatViewController.swift in Sources */,
 				DE429CD4228842F60004D31F /* ContactListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
