@@ -119,7 +119,6 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         if  let contact = self.selectedContact,
             let vc = segue.destination as? ChatViewController {
             
-            
             vc.chat = Chat(
                 id: nil,
                 sender: (Auth.auth().currentUser?.email)!,

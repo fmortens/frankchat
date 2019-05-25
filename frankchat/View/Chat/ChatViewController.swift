@@ -24,9 +24,19 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
             print("Chat view opened \(chat)")
         }
         
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
         
         self.view.addGestureRecognizer(
             UITapGestureRecognizer(
@@ -43,16 +53,12 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         
         if let chat = self.chat, let messageToSend = self.textField.text {
-            
-            
             if chat.id != nil {
                 print("CONTINUE CHAT \(messageToSend)")
             
             } else {
                 print("NEW CHAT \(messageToSend)")
             }
-        
-            
         }
         
         return true

@@ -10,15 +10,6 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
-
-struct Chat {
-    let id: String?
-    let sender: String
-    let receiver: String
-    let updated: Timestamp?
-}
-
-
 class ChatListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var logoutButton: UIBarButtonItem!
