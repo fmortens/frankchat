@@ -57,7 +57,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jEh-17-g6p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5604" y="-74"/>
+            <point key="canvasLocation" x="-5271" y="-74"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -110,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5603" y="-825"/>
+            <point key="canvasLocation" x="-5271" y="-825"/>
         </scene>
         <!--Contact List-->
         <scene sceneID="Tuv-ZB-mBD">
@@ -168,13 +168,38 @@
                     <view key="view" contentMode="scaleToFill" id="rnu-KL-d0p">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dJf-B1-LAe">
+                                <rect key="frame" x="0.0" y="88" width="414" height="695"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hSd-z8-usA" userLabel="Text Field">
+                                <rect key="frame" x="0.0" y="783" width="414" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dJf-B1-LAe" firstAttribute="trailing" secondItem="ABb-el-tyF" secondAttribute="trailing" id="3IA-8L-tIC"/>
+                            <constraint firstItem="dJf-B1-LAe" firstAttribute="top" secondItem="ABb-el-tyF" secondAttribute="top" id="XZm-9H-hkH"/>
+                            <constraint firstItem="hSd-z8-usA" firstAttribute="top" secondItem="dJf-B1-LAe" secondAttribute="bottom" id="bAv-ee-VWC"/>
+                            <constraint firstItem="dJf-B1-LAe" firstAttribute="leading" secondItem="ABb-el-tyF" secondAttribute="leading" id="eoy-FK-Ltq"/>
+                            <constraint firstItem="hSd-z8-usA" firstAttribute="bottom" secondItem="ABb-el-tyF" secondAttribute="bottom" id="gKl-SZ-Pmh"/>
+                            <constraint firstItem="hSd-z8-usA" firstAttribute="leading" secondItem="ABb-el-tyF" secondAttribute="leading" id="lj1-xM-Nhf"/>
+                            <constraint firstItem="ABb-el-tyF" firstAttribute="trailing" secondItem="hSd-z8-usA" secondAttribute="trailing" id="v3w-s2-7ry"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ABb-el-tyF"/>
                     </view>
+                    <connections>
+                        <outlet property="chatTableView" destination="dJf-B1-LAe" id="UBY-fW-GQ3"/>
+                        <outlet property="textField" destination="hSd-z8-usA" id="hNO-eP-DUF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hmz-BY-Rqu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1939" y="-465"/>
+            <point key="canvasLocation" x="-1645" y="-465"/>
         </scene>
         <!--Message List-->
         <scene sceneID="cXu-IO-TFw">
@@ -262,8 +287,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Cos-Mi-4Vi"/>
         <segue reference="TSL-EA-rrb"/>
-        <segue reference="Riz-Pv-HUb"/>
-        <segue reference="T98-eG-Zxq"/>
+        <segue reference="Rqe-eM-g8z"/>
+        <segue reference="tbb-dX-sdc"/>
     </inferredMetricsTieBreakers>
 </document>

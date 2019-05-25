@@ -73,6 +73,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DE1DECE9229963BF00F996E0 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				DE429CCF22875A2E0004D31F /* ChatListViewController.swift */,
+				DEFE7D2722985A5C00E2B2A0 /* ChatViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		DE41438F228700E6009914CE = {
 			isa = PBXGroup;
 			children = (
@@ -106,10 +115,9 @@
 			isa = PBXGroup;
 			children = (
 				DE429CCD228759200004D31F /* StartupViewController.swift */,
-				DEFE7D2722985A5C00E2B2A0 /* ChatViewController.swift */,
 				DE41439D228700E6009914CE /* LoginViewController.swift */,
 				DE429CD3228842F60004D31F /* ContactListViewController.swift */,
-				DE429CCF22875A2E0004D31F /* ChatListViewController.swift */,
+				DE1DECE9229963BF00F996E0 /* Chat */,
 				DE41439F228700E6009914CE /* Main.storyboard */,
 				DE4143A4228700E7009914CE /* LaunchScreen.storyboard */,
 			);
