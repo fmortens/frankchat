@@ -123,7 +123,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
                 id: nil,
                 sender: (Auth.auth().currentUser?.email)!,
                 receiver: contact.email,
-                updated: nil
+                updated: Timestamp(date: Date())
             )
         }
     }

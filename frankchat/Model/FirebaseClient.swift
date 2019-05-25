@@ -185,17 +185,18 @@ class FirebaseClient {
         db.settings = settings
         
         db
-            .collection("messages").order(by: "updated", descending: true)
-            .addSnapshotListener { querySnapshot, error in
-                guard let snapshot = querySnapshot else {
-                    print("Error fetching snapshots: \(error!)")
-                    return
-                }
+            .collection("messages")
+            .whereField("receiver", isEqualTo: Auth.auth().currentUser!.email! )
+                    .addSnapshotListener { querySnapshot, error in
+                        guard let snapshot = querySnapshot else {
+                            print("Error fetching snapshots: \(error!)")
+                            return
+                        }
                 
-                snapshot.documentChanges.forEach { change in
-                    completion(change.type, change)
-                }
-        }
+                        snapshot.documentChanges.forEach { change in
+                            completion(change.type, change)
+                        }
+                    }
         
     }
     
@@ -218,6 +219,49 @@ class FirebaseClient {
                 completion(true, snapshot)
         }
         
+        
+    }
+    
+    class func addMessage(something: Chat, messageToSend: String, completion: @escaping (Bool?) -> Void) {
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        
+        
+        if something.id != nil {
+//
+            
+            
+            let messageRef = db.collection("messages").document(something.id!)
+            
+            messageRef.collection("messages").addDocument(data: ["content": messageToSend, "sender": something.sender, "timestamp": FieldValue.serverTimestamp()])
+            
+            // Set the "capital" field of the city 'DC'
+            messageRef.updateData([
+                "updated": FieldValue.serverTimestamp()
+            ]) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+            
+            
+        
+            
+            
+            
+        } else {
+            print("New chat \(something) with \(messageToSend)")
+        }
+        
+        
+        
+       
         
     }
     

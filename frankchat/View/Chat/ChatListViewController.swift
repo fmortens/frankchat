@@ -35,7 +35,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                 id: change.document.documentID,
                 sender: (change.document.data()["sender"] as? String)!,
                 receiver: (change.document.data()["receiver"] as? String)!,
-                updated: (change.document.data()["updated"] as? Timestamp)!
+                updated: change.document.data()["updated"] as? Timestamp
             )
             
             print("Added \(chat)")
@@ -49,10 +49,10 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                 id: change.document.documentID,
                 sender: (change.document.data()["sender"] as? String)!,
                 receiver: (change.document.data()["receiver"] as? String)!,
-                updated: (change.document.data()["updated"] as? Timestamp)!
+                updated: change.document.data()["updated"] as? Timestamp
             )
             
-            self.chats[Int(change.newIndex)] = chat
+            self.chats[Int(change.oldIndex)] = chat
             
         }
         
@@ -76,7 +76,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         let chat = chats[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")!
         
-        cell.textLabel!.text = chat.sender
+        cell.textLabel!.text = "From: \(chat.sender)"
         
         return cell
     }

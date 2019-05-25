@@ -53,12 +53,16 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         
         if let chat = self.chat, let messageToSend = self.textField.text {
-            if chat.id != nil {
-                print("CONTINUE CHAT \(messageToSend)")
             
-            } else {
-                print("NEW CHAT \(messageToSend)")
+            
+            FirebaseClient.addMessage(something: chat, messageToSend: messageToSend) { (success) in
+                if success ?? false {
+                    print("Success")
+                } else {
+                    print("Failure")
+                }
             }
+          
         }
         
         return true
