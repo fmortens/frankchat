@@ -58,7 +58,9 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
             self.conversations.remove(at: Int(change.oldIndex))
         }
         
+        DispatchQueue.main.async {
         self.chatListView.reloadData()
+        }
         
     }
     
