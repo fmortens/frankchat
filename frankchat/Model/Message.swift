@@ -6,10 +6,12 @@
 //  Copyright © 2019 Frank Mortensen. All rights reserved.
 //
 
+import Firebase
+
 struct Message {
     
+    let content: String
     let sender: String
-    let receiver: String
-    let content: String?
+    let timestamp: Timestamp?
     
 }

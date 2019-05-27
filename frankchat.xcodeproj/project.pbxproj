@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		563EFC3D8B81BF086DC4CB3F /* Pods_frankchat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DECAF0D05638D725F7DE7B /* Pods_frankchat.framework */; };
-		DE1DECEB22999BA600F996E0 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DECEA22999BA600F996E0 /* Chat.swift */; };
+		DE1DECEB22999BA600F996E0 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DECEA22999BA600F996E0 /* Conversation.swift */; };
 		DE41439C228700E6009914CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE41439B228700E6009914CE /* AppDelegate.swift */; };
 		DE41439E228700E6009914CE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE41439D228700E6009914CE /* LoginViewController.swift */; };
 		DE4143A1228700E6009914CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE41439F228700E6009914CE /* Main.storyboard */; };
@@ -28,7 +28,7 @@
 		32DECAF0D05638D725F7DE7B /* Pods_frankchat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_frankchat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B010D5CC4917A2CD68F8897 /* Pods-frankchat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-frankchat.debug.xcconfig"; path = "Target Support Files/Pods-frankchat/Pods-frankchat.debug.xcconfig"; sourceTree = "<group>"; };
 		B4CDE6B26EBC0521B45B9EF3 /* Pods-frankchat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-frankchat.release.xcconfig"; path = "Target Support Files/Pods-frankchat/Pods-frankchat.release.xcconfig"; sourceTree = "<group>"; };
-		DE1DECEA22999BA600F996E0 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		DE1DECEA22999BA600F996E0 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		DE414398228700E6009914CE /* frankchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = frankchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE41439B228700E6009914CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE41439D228700E6009914CE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 				DEB583892287111A00B86A36 /* FirebaseClient.swift */,
 				DE5A9FE5228F3D04000F2480 /* Contact.swift */,
 				DE9E50BA229480A200E3AA71 /* Message.swift */,
-				DE1DECEA22999BA600F996E0 /* Chat.swift */,
+				DE1DECEA22999BA600F996E0 /* Conversation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -291,7 +291,7 @@
 				DE5A9FE6228F3D04000F2480 /* Contact.swift in Sources */,
 				DE429CCE228759200004D31F /* StartupViewController.swift in Sources */,
 				DE41439E228700E6009914CE /* LoginViewController.swift in Sources */,
-				DE1DECEB22999BA600F996E0 /* Chat.swift in Sources */,
+				DE1DECEB22999BA600F996E0 /* Conversation.swift in Sources */,
 				DE41439C228700E6009914CE /* AppDelegate.swift in Sources */,
 				DEB5838A2287111A00B86A36 /* FirebaseClient.swift in Sources */,
 				DE9E50BB229480A200E3AA71 /* Message.swift in Sources */,

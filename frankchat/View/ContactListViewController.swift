@@ -116,15 +116,29 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Setting the chat id if this is a ChatViewController
-        if  let contact = self.selectedContact,
-            let vc = segue.destination as? ChatViewController {
+        if  let contact = self.selectedContact {
             
-            vc.chat = Chat(
+            
+            var conversation = Conversation(
                 id: nil,
-                participants: [(Auth.auth().currentUser?.email)!,
-                contact.email],
+                participants: [
+                    Auth.auth().currentUser!.email!,
+                    contact.email
+                ],
                 updated: Timestamp(date: Date())
             )
+            
+            FirebaseClient.addConversation(conversation: conversation) { (id, error) in
+                if let id = id,
+                   let vc = segue.destination as? ChatViewController {
+                        conversation.id = id
+                    
+                        vc.conversation = conversation
+                } else {
+                    print("Could not create conversation \(String(describing: error))")
+                }
+            }
+            
         }
     }
     

@@ -9,9 +9,9 @@
 import Foundation
 import Firebase // Need this for the Timestamp data type
 
-struct Chat {
+struct Conversation {
     
-    let id: String?
+    var id: String?
     let participants: [String]
     let updated: Timestamp?
     

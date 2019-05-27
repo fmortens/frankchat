@@ -15,8 +15,8 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet var chatListView: UITableView!
     
-    var chats = [Chat]()
-    var selectedChat: Chat?
+    var chats = [Conversation]()
+    var conversation: Conversation?
     
     override func viewDidLoad() {
         
@@ -31,9 +31,9 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (changeType == .added) {
             
-            let chat = Chat(
+            let chat = Conversation(
                 id: change.document.documentID,
-                participants: (change.document.data()["participants"] as? [String])!,
+                participants: change.document.data()["participants"] as! [String],
                 updated: change.document.data()["updated"] as? Timestamp
             )
             
@@ -44,7 +44,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (changeType == .modified) {
             
-            let chat = Chat(
+            let chat = Conversation(
                 id: change.document.documentID,
                 participants: change.document.data()["participants"] as! [String],
                 updated: change.document.data()["updated"] as? Timestamp
@@ -77,11 +77,12 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         cell.textLabel!.text = "From: \(chat.participants[0])"
         
         return cell
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.selectedChat = chats[indexPath.row]
+        self.conversation = chats[indexPath.row]
         
 //        FirebaseClient.getLatestChatMessage(documentId: chat.id) { (success, snapshot) in
 //
@@ -110,7 +111,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Setting the chat id if this is a ChatViewController
         if let vc = segue.destination as? ChatViewController {
-            vc.chat = self.selectedChat
+            vc.conversation = self.conversation
         }
     }
     

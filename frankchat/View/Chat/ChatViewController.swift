@@ -8,10 +8,12 @@
 
 import Foundation
 import UIKit
+import Firebase
 
-class ChatViewController: UIViewController, UITextFieldDelegate {
+class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    var chat: Chat?
+    var conversation: Conversation?
+    var messages = [Message]()
     
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var textField: UITextField!
@@ -20,9 +22,10 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
         
         super.viewDidLoad()
         
-        if let chat = chat {
-            print("Chat view opened \(chat)")
-        }
+        chatTableView.dataSource = self
+        chatTableView.delegate = self
+        
+        FirebaseClient.monitorMessagesChanges(conversationId: (conversation?.id!)!, completion: handleMessagesChanges)
         
         NotificationCenter.default.addObserver(
             self,
@@ -48,14 +51,49 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
         textField.delegate = self
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool
-    {
+    func handleMessagesChanges(changeType: DocumentChangeType, change: DocumentChange) {
+        
+        if (changeType == .added) {
+            
+            let message = Message(
+                content: change.document.data()["content"] as! String,
+                sender: change.document.data()["sender"] as! String,
+                timestamp: change.document.data()["timestamp"] as? Timestamp
+            )
+            
+            print("Added \(message)")
+            
+            self.messages.append(message)
+        }
+        
+        if (changeType == .modified) {
+            
+            let message = Message(
+                content: change.document.data()["content"] as! String,
+                sender: change.document.data()["sender"] as! String,
+                timestamp: change.document.data()["timestamp"] as? Timestamp
+            )
+            
+            self.messages[Int(change.newIndex)] = message
+            
+        }
+        
+        if (changeType == .removed) {
+            self.messages.remove(at: Int(change.newIndex))
+        }
+        
+        self.chatTableView.reloadData()
+        
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
-        if let chat = self.chat, let messageToSend = self.textField.text {
+        if let conversation = self.conversation, let messageToSend = self.textField.text {
             
             
-            FirebaseClient.addMessage(something: chat, messageToSend: messageToSend) { (success) in
+            FirebaseClient.addMessage(conversation: conversation, messageToSend: messageToSend) { (success) in
                 if success ?? false {
                     print("Success")
                 } else {
@@ -66,6 +104,20 @@ class ChatViewController: UIViewController, UITextFieldDelegate {
         }
         
         return true
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.messages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let message = messages[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")!
+        
+        cell.textLabel!.text = message.content
+        
+        return cell
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {

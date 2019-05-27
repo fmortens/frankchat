@@ -185,7 +185,7 @@ class FirebaseClient {
         db.settings = settings
         
         db
-            .collection("messages")
+            .collection("conversations")
             .whereField("participants", arrayContains: Auth.auth().currentUser!.email! )
                     .addSnapshotListener { querySnapshot, error in
                         guard let snapshot = querySnapshot else {
@@ -210,7 +210,7 @@ class FirebaseClient {
         db.settings = settings
         
         db
-            .collection("messages").document(documentId).collection("messages").order(by: "timestamp", descending: true).getDocuments { (snapshot, error) in
+            .collection("conversations").document(documentId).collection("messages").order(by: "timestamp", descending: true).getDocuments { (snapshot, error) in
                 guard let snapshot = snapshot else {
                     completion(false, nil)
                     return
@@ -222,7 +222,7 @@ class FirebaseClient {
         
     }
     
-    class func addMessage(something: Chat, messageToSend: String, completion: @escaping (Bool?) -> Void) {
+    class func addMessage(conversation: Conversation, messageToSend: String, completion: @escaping (Bool?) -> Void) {
         
         let db = Firestore.firestore()
         let settings = db.settings
@@ -231,21 +231,21 @@ class FirebaseClient {
         
         
         
-        if something.id != nil {
+        if conversation.id != nil {
 //
             
             
-            let messageRef = db.collection("messages").document(something.id!)
+            let conversationsRef = db.collection("conversations").document(conversation.id!)
             
-            messageRef.collection("messages").addDocument(
+            conversationsRef.collection("messages").addDocument(
                 data: [
                     "content": messageToSend,
-                    "participants": something.participants,
+                    "sender": Auth.auth().currentUser?.email as Any,
                     "timestamp": FieldValue.serverTimestamp()
                 ])
             
             // Set the "capital" field of the city 'DC'
-            messageRef.updateData([
+            conversationsRef.updateData([
                 "updated": FieldValue.serverTimestamp()
             ]) { err in
                 if let err = err {
@@ -261,7 +261,7 @@ class FirebaseClient {
             
             
         } else {
-            print("New chat \(something) with \(messageToSend)")
+            print("New chat \(conversation) with \(messageToSend)")
         }
         
         
@@ -270,4 +270,47 @@ class FirebaseClient {
         
     }
     
+    class func monitorMessagesChanges(
+        conversationId: String,
+        completion: @escaping (DocumentChangeType, DocumentChange) -> Void
+    ) {
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        db
+            .collection("conversations").document(conversationId).collection("messages")
+            .addSnapshotListener { querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching snapshots: \(error!)")
+                    return
+                }
+                
+                snapshot.documentChanges.forEach { change in
+                    completion(change.type, change)
+                }
+        }
+        
+    }
+    
+    class func addConversation(
+        conversation: Conversation,
+        completion: @escaping (String?, Error?) -> Void
+    ) {
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        let documentRef = db.collection("conversations").addDocument(
+            data: [
+                "participants": conversation.participants,
+                "updated": conversation.updated!
+            ])
+        
+        completion(documentRef.documentID, nil)
+    }
 }
