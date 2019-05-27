@@ -176,7 +176,7 @@ class FirebaseClient {
     }
     
     
-    class func monitorChatChanges(
+    class func monitorConversationChanges(
         completion: @escaping (DocumentChangeType, DocumentChange) -> Void) {
         
         let db = Firestore.firestore()
@@ -187,6 +187,7 @@ class FirebaseClient {
         db
             .collection("conversations")
             .whereField("participants", arrayContains: Auth.auth().currentUser!.email! )
+            .order(by: "updated", descending: true)
                     .addSnapshotListener { querySnapshot, error in
                         guard let snapshot = querySnapshot else {
                             print("Error fetching snapshots: \(error!)")
@@ -197,28 +198,6 @@ class FirebaseClient {
                             completion(change.type, change)
                         }
                     }
-        
-    }
-    
-    class func getLatestChatMessage(documentId: String, completion: @escaping (Bool?, QuerySnapshot?) -> Void) {
-        
-        print("Fetch \(documentId)")
-        
-        let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
-        
-        db
-            .collection("conversations").document(documentId).collection("messages").order(by: "timestamp", descending: true).getDocuments { (snapshot, error) in
-                guard let snapshot = snapshot else {
-                    completion(false, nil)
-                    return
-                }
-                
-                completion(true, snapshot)
-        }
-        
         
     }
     

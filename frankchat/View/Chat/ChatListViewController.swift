@@ -23,7 +23,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
         chatListView.dataSource = self
         chatListView.delegate = self
             
-        FirebaseClient.monitorChatChanges(completion: handleChatChanges(changeType:change:))
+        FirebaseClient.monitorConversationChanges(completion: handleChatChanges(changeType:change:))
     }
     
     
@@ -50,7 +50,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                 updated: change.document.data()["updated"] as? Timestamp
             )
             
-            self.conversations[Int(change.oldIndex)] = conversation
+            self.conversations[Int(change.newIndex)] = conversation
             
         }
         
