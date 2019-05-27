@@ -128,14 +128,10 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
                 updated: Timestamp(date: Date())
             )
             
-            FirebaseClient.addConversation(conversation: conversation) { (id, error) in
-                if let id = id,
-                   let vc = segue.destination as? ChatViewController {
-                        conversation.id = id
-                    
-                        vc.conversation = conversation
-                } else {
-                    print("Could not create conversation \(String(describing: error))")
+            FirebaseClient.addConversation(conversation: conversation) { (id) in
+                if let vc = segue.destination as? ChatViewController {
+                    conversation.id = id
+                    vc.conversation = conversation
                 }
             }
             

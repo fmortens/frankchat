@@ -297,7 +297,7 @@ class FirebaseClient {
     
     class func addConversation(
         conversation: Conversation,
-        completion: @escaping (String?, Error?) -> Void
+        completion: @escaping (String) -> Void
     ) {
         
         let db = Firestore.firestore()
@@ -311,6 +311,6 @@ class FirebaseClient {
                 "updated": conversation.updated!
             ])
         
-        completion(documentRef.documentID, nil)
+        completion(documentRef.documentID)
     }
 }
