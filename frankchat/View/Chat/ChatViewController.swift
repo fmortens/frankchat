@@ -55,15 +55,20 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         if (changeType == .added) {
             
+            if
+                let content = change.document.data()["content"],
+                let sender = change.document.data()["sender"],
+                let timestamp = change.document.data()["timestamp"] {
             let message = Message(
-                content: change.document.data()["content"] as! String,
-                sender: change.document.data()["sender"] as! String,
-                timestamp: change.document.data()["timestamp"] as? Timestamp
+                content: content as! String,
+                sender: sender as! String,
+                timestamp: timestamp as? Timestamp
             )
             
-            print("Added \(message)")
+            print("Added new \(message)")
             
-            self.messages.append(message)
+            self.messages.insert(message, at: 0)
+            }
         }
         
         if (changeType == .modified) {
@@ -74,12 +79,17 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 timestamp: change.document.data()["timestamp"] as? Timestamp
             )
             
+            print("Modified \(message), \(Int(change.newIndex)), \(Int(change.oldIndex))")
+            
             self.messages[Int(change.newIndex)] = message
             
         }
         
         if (changeType == .removed) {
-            self.messages.remove(at: Int(change.newIndex))
+            
+            print("Removed \(Int(change.oldIndex)), \(Int(change.newIndex))")
+            
+            self.messages.remove(at: Int(change.oldIndex))
         }
         
         self.chatTableView.reloadData()
