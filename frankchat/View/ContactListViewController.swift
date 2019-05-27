@@ -121,8 +121,8 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
             
             vc.chat = Chat(
                 id: nil,
-                sender: (Auth.auth().currentUser?.email)!,
-                receiver: contact.email,
+                participants: [(Auth.auth().currentUser?.email)!,
+                contact.email],
                 updated: Timestamp(date: Date())
             )
         }

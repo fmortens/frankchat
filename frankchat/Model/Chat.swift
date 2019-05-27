@@ -12,8 +12,7 @@ import Firebase // Need this for the Timestamp data type
 struct Chat {
     
     let id: String?
-    let sender: String
-    let receiver: String
+    let participants: [String]
     let updated: Timestamp?
     
 }

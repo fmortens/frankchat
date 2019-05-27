@@ -186,7 +186,7 @@ class FirebaseClient {
         
         db
             .collection("messages")
-            .whereField("receiver", isEqualTo: Auth.auth().currentUser!.email! )
+            .whereField("participants", arrayContains: Auth.auth().currentUser!.email! )
                     .addSnapshotListener { querySnapshot, error in
                         guard let snapshot = querySnapshot else {
                             print("Error fetching snapshots: \(error!)")
@@ -237,7 +237,12 @@ class FirebaseClient {
             
             let messageRef = db.collection("messages").document(something.id!)
             
-            messageRef.collection("messages").addDocument(data: ["content": messageToSend, "sender": something.sender, "timestamp": FieldValue.serverTimestamp()])
+            messageRef.collection("messages").addDocument(
+                data: [
+                    "content": messageToSend,
+                    "participants": something.participants,
+                    "timestamp": FieldValue.serverTimestamp()
+                ])
             
             // Set the "capital" field of the city 'DC'
             messageRef.updateData([
