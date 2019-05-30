@@ -16,32 +16,49 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var chatListView: UITableView!
     
     var conversations = [Conversation]()
+    var sortedConversations = [Conversation]()
     var conversation: Conversation?
+    var listener: ListenerRegistration?
     
     override func viewDidLoad() {
         
         chatListView.dataSource = self
         chatListView.delegate = self
-            
-        FirebaseClient.monitorConversationChanges(completion: handleChatChanges(changeType:change:))
+        
+        if listener == nil {
+            FirebaseClient.monitorConversationChanges(
+                completion: handleChatChanges,
+                registerListener: handleListener
+            )
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        //self.listener!.remove()
+    }
+    
+    
+    func handleListener(listener: ListenerRegistration) {
+        self.listener = listener
     }
     
     
     func handleChatChanges(changeType: DocumentChangeType, change: DocumentChange) {
         
-        if (changeType == .added) {
-            
+        switch changeType {
+        case .added:
             let conversation = Conversation(
                 id: change.document.documentID,
                 participants: change.document.data()["participants"] as! [String],
                 updated: change.document.data()["updated"] as? Timestamp
             )
             
-            self.conversations.append(conversation)
-        }
+            print("Added new \(conversation), at: \(Int(change.newIndex))")
+            self.conversations.insert(conversation, at: Int(change.newIndex))
         
-        if (changeType == .modified) {
-            
+        case .modified:
             let conversation = Conversation(
                 id: change.document.documentID,
                 participants: change.document.data()["participants"] as! [String],
@@ -49,15 +66,16 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
             )
             
             self.conversations[Int(change.oldIndex)] = conversation
+        case .removed:
             
-        }
-        
-        if (changeType == .removed) {
             self.conversations.remove(at: Int(change.oldIndex))
+            
+        default:
+            print("Unknown modification")
         }
         
         DispatchQueue.main.async {
-        self.chatListView.reloadData()
+            self.chatListView.reloadData()
         }
         
     }
@@ -71,7 +89,16 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let conversation = conversations[indexPath.row]
+        
+        let conversation = conversations.sorted(by: { (conversation1, conversation2) -> Bool in
+            if let timestamp1 = conversation1.updated,
+                let timestamp2 = conversation2.updated {
+                return timestamp1.seconds < timestamp2.seconds
+            } else {
+                return false
+            }
+        })[indexPath.row]
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")!
         
         cell.textLabel!.text = "From: \(conversation.participants[0])"

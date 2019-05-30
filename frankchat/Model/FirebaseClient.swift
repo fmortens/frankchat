@@ -178,15 +178,16 @@ class FirebaseClient {
     
     
     class func monitorConversationChanges(
-        completion: @escaping (DocumentChangeType, DocumentChange) -> Void) {
+        completion: @escaping (DocumentChangeType, DocumentChange) -> Void,
+        registerListener: (ListenerRegistration) -> Void
+    ) {
         
         let db = Firestore.firestore()
         let settings = db.settings
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
-        print("Adding snapshot listener (conversation)")
-        db
+        let listener = db
             .collection("conversations")
             .whereField("participants", arrayContains: Auth.auth().currentUser!.email! )
                     .addSnapshotListener { querySnapshot, error in
@@ -199,6 +200,8 @@ class FirebaseClient {
                             completion(change.type, change)
                         }
                     }
+        
+        registerListener(listener)
         
     }
     

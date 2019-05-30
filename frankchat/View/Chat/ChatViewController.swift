@@ -26,7 +26,11 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         chatTableView.dataSource = self
         chatTableView.delegate = self
         
-        FirebaseClient.monitorMessagesChanges(conversationId: (conversation?.id!)!, completion: handleMessagesChanges, registerListener: handleListener)
+        FirebaseClient.monitorMessagesChanges(
+            conversationId: (conversation?.id!)!,
+            completion: handleMessagesChanges,
+            registerListener: handleListener
+        )
         
         NotificationCenter.default.addObserver(
             self,
@@ -102,10 +106,19 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 print("Unknown message change")
         }
         
-        self.chatTableView.reloadData()
-        
-        self.chatTableView.layoutIfNeeded()
-        self.chatTableView.setContentOffset(CGPoint(x: 0, y: self.chatTableView.contentSize.height - self.chatTableView.frame.height), animated: false)
+        DispatchQueue.main.async {
+            self.chatTableView.reloadData()
+            self.chatTableView.layoutIfNeeded()
+            
+            // Scroll down messages list to be able to converse
+            self.chatTableView.setContentOffset(
+                CGPoint(
+                    x: 0,
+                    y: self.chatTableView.contentSize.height - self.chatTableView.frame.height
+                ),
+                animated: false
+            )
+        }
         
     }
     
