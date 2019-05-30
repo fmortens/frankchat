@@ -14,6 +14,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     var conversation: Conversation?
     var messages = [Message]()
+    var listener: ListenerRegistration?
     
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var textField: UITextField!
@@ -25,7 +26,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         chatTableView.dataSource = self
         chatTableView.delegate = self
         
-        FirebaseClient.monitorMessagesChanges(conversationId: (conversation?.id!)!, completion: handleMessagesChanges)
+        FirebaseClient.monitorMessagesChanges(conversationId: (conversation?.id!)!, completion: handleMessagesChanges, registerListener: handleListener)
         
         NotificationCenter.default.addObserver(
             self,
@@ -51,45 +52,55 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         textField.delegate = self
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.listener!.remove()
+    }
+    
+    func handleListener(listener: ListenerRegistration) {
+        self.listener = listener
+    }
+    
     func handleMessagesChanges(changeType: DocumentChangeType, change: DocumentChange) {
         
-        if (changeType == .added) {
-            
-            if
-                let content = change.document.data()["content"],
-                let sender = change.document.data()["sender"],
-                let timestamp = change.document.data()["timestamp"] {
-            let message = Message(
-                content: content as! String,
-                sender: sender as! String,
-                timestamp: timestamp as? Timestamp
-            )
-            
-            print("Added new \(message)")
-            
-            self.messages.insert(message, at: 0)
-            }
-        }
+        switch changeType {
         
-        if (changeType == .modified) {
+            case .added:
+                if
+                    let content = change.document.data()["content"],
+                    let sender = change.document.data()["sender"],
+                    let timestamp = change.document.data()["timestamp"] {
+                
+                    let message = Message(
+                        content: content as! String,
+                        sender: sender as! String,
+                        timestamp: timestamp as? Timestamp
+                    )
+                
+                    print("Added new \(message), at: \(Int(change.newIndex))")
+                    self.messages.insert(message, at: Int(change.newIndex))
+//                    self.messages.append(message)
+                }
             
-            let message = Message(
-                content: change.document.data()["content"] as! String,
-                sender: change.document.data()["sender"] as! String,
-                timestamp: change.document.data()["timestamp"] as? Timestamp
-            )
+            case .modified:
+                
+                let message = Message(
+                    content: change.document.data()["content"] as! String,
+                    sender: change.document.data()["sender"] as! String,
+                    timestamp: change.document.data()["timestamp"] as? Timestamp
+                )
             
-            print("Modified \(message), \(Int(change.newIndex)), \(Int(change.oldIndex))")
+                print("Modified \(message), newIndex: \(Int(change.newIndex)), oldIndex: \(Int(change.oldIndex))")
             
-            self.messages[Int(change.newIndex)] = message
+                self.messages[Int(change.oldIndex)] = message
             
-        }
+            case .removed:
         
-        if (changeType == .removed) {
-            
-            print("Removed \(Int(change.oldIndex)), \(Int(change.newIndex))")
-            
-            self.messages.remove(at: Int(change.oldIndex))
+                self.messages.remove(at: Int(change.oldIndex))
+        
+            default:
+                print("Unknown message change")
         }
         
         self.chatTableView.reloadData()

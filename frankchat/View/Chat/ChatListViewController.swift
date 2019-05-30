@@ -37,9 +37,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                 updated: change.document.data()["updated"] as? Timestamp
             )
             
-            print("Added \(conversation)")
-            
-            self.conversations.insert(conversation, at: 0)
+            self.conversations.append(conversation)
         }
         
         if (changeType == .modified) {
@@ -50,7 +48,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                 updated: change.document.data()["updated"] as? Timestamp
             )
             
-            self.conversations[Int(change.newIndex)] = conversation
+            self.conversations[Int(change.oldIndex)] = conversation
             
         }
         
@@ -93,10 +91,11 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Setting the chat id if this is a ChatViewController
+        
         if let vc = segue.destination as? ChatViewController {
             vc.conversation = self.conversation
         }
+        
     }
     
     

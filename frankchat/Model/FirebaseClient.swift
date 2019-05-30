@@ -101,12 +101,13 @@ class FirebaseClient {
     class func monitorContactChanges(
         completion: @escaping (DocumentChangeType, DocumentChange) -> Void) {
         
-        print("Showing Contact List")
-        
         let db = Firestore.firestore()
         let settings = db.settings
+        
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
+        
+        print("Adding snapshot listener (contacts)")
         
         db
             .collection("contacts")
@@ -184,10 +185,10 @@ class FirebaseClient {
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
+        print("Adding snapshot listener (conversation)")
         db
             .collection("conversations")
             .whereField("participants", arrayContains: Auth.auth().currentUser!.email! )
-            .order(by: "updated", descending: true)
                     .addSnapshotListener { querySnapshot, error in
                         guard let snapshot = querySnapshot else {
                             print("Error fetching snapshots: \(error!)")
@@ -211,9 +212,6 @@ class FirebaseClient {
         
         
         if conversation.id != nil {
-//
-            
-            
             let conversationsRef = db.collection("conversations").document(conversation.id!)
             
             conversationsRef.collection("messages").addDocument(
@@ -234,24 +232,16 @@ class FirebaseClient {
                 }
             }
             
-            
-        
-            
-            
-            
         } else {
             print("New chat \(conversation) with \(messageToSend)")
         }
-        
-        
-        
-       
         
     }
     
     class func monitorMessagesChanges(
         conversationId: String,
-        completion: @escaping (DocumentChangeType, DocumentChange) -> Void
+        completion: @escaping (DocumentChangeType, DocumentChange) -> Void,
+        registerListener: (ListenerRegistration) -> Void
     ) {
         
         let db = Firestore.firestore()
@@ -259,9 +249,10 @@ class FirebaseClient {
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
-        db
+        print("Adding snapshot listener (messages)")
+        
+        let listener = db
             .collection("conversations").document(conversationId).collection("messages")
-            .order(by: "timestamp", descending: true)
             .addSnapshotListener { querySnapshot, error in
                 guard let snapshot = querySnapshot else {
                     print("Error fetching snapshots: \(error!)")
@@ -272,6 +263,8 @@ class FirebaseClient {
                     completion(change.type, change)
                 }
         }
+        
+        registerListener(listener)
         
     }
     
