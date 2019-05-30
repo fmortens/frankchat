@@ -80,7 +80,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 
                     print("Added new \(message), at: \(Int(change.newIndex))")
                     self.messages.insert(message, at: Int(change.newIndex))
-//                    self.messages.append(message)
                 }
             
             case .modified:
@@ -105,24 +104,30 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.chatTableView.reloadData()
         
+        self.chatTableView.layoutIfNeeded()
+        self.chatTableView.setContentOffset(CGPoint(x: 0, y: self.chatTableView.contentSize.height - self.chatTableView.frame.height), animated: false)
+        
     }
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+//        textField.resignFirstResponder()
         
         if let conversation = self.conversation, let messageToSend = self.textField.text {
-            
-            
+
             FirebaseClient.addMessage(conversation: conversation, messageToSend: messageToSend) { (success) in
                 if success ?? false {
                     print("Success")
+                    
+                    self.textField.text = ""
+                    
                 } else {
                     print("Failure")
                 }
             }
-          
+
         }
+        
         
         return true
     }
@@ -133,7 +138,15 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let message = messages[indexPath.row]
+        let message = messages.sorted(by: { (message1, message2) -> Bool in
+            if let timestamp1 = message1.timestamp,
+                let timestamp2 = message2.timestamp {
+                return timestamp1.seconds < timestamp2.seconds
+            } else {
+                return false
+            }
+        })[indexPath.row]
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")!
         
         cell.textLabel!.text = message.content

@@ -221,19 +221,16 @@ class FirebaseClient {
                     "timestamp": FieldValue.serverTimestamp()
                 ])
             
-            // Set the "capital" field of the city 'DC'
             conversationsRef.updateData([
                 "updated": FieldValue.serverTimestamp()
             ]) { err in
-                if let err = err {
-                    print("Error updating document: \(err)")
+                if err != nil {
+                    completion(false)
                 } else {
-                    print("Document successfully updated")
+                    completion(true)
                 }
             }
             
-        } else {
-            print("New chat \(conversation) with \(messageToSend)")
         }
         
     }
