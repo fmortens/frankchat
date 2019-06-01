@@ -1,5 +1,5 @@
 //
-//  ChatListViewController.swift
+//  ConversationListViewController.swift
 //  frankchat
 //
 //  Created by Frank Mortensen on 11/05/2019.
@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
-class ChatListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ConversationListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet var chatListView: UITableView!
@@ -118,7 +118,7 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let vc = segue.destination as? ChatViewController {
+        if let vc = segue.destination as? ConversationViewController {
             vc.conversation = self.conversation
         }
         

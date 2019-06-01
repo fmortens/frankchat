@@ -1,5 +1,5 @@
 //
-//  ChatViewController.swift
+//  ConversationViewController.swift
 //  frankchat
 //
 //  Created by Frank Mortensen on 24/05/2019.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+class ConversationViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
     var conversation: Conversation?
     var messages = [Message]()

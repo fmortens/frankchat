@@ -129,7 +129,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
             )
             
             FirebaseClient.addConversation(conversation: conversation) { (id) in
-                if let vc = segue.destination as? ChatViewController {
+                if let vc = segue.destination as? ConversationViewController {
                     conversation.id = id
                     vc.conversation = conversation
                 }
