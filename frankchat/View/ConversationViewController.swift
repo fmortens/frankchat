@@ -38,6 +38,10 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         textField.delegate = self
         textField.layer.borderWidth = 2
         
+        self.title = conversation!.participants.filter({ (participant) -> Bool in
+            return participant != Auth.auth().currentUser!.email
+        }).first!
+        
         hideKeyboardWhenTappedAround()
         
     }
@@ -187,11 +191,25 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         let message = sortedMessages[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")!
         
-        cell.textLabel!.text = message.content
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        
+        cell.textLabel!.text = "\(dateFormatter.string(from: message.timestamp!.dateValue()) )\n\(message.sender):\n\(message.content)"
         cell.contentView.transform = CGAffineTransform (scaleX: 1, y: -1)
         
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     
     @objc func keyboardWillShow(notification: NSNotification){
         

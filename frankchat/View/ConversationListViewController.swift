@@ -111,8 +111,28 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
             DispatchQueue.main.async {
             FirebaseClient.getLatestMessageInConversation(id: id, completion: { (message) in
                 if let message = message {
-                    cell.textLabel!.text = message.content
-                    cell.detailTextLabel!.text = message.sender
+                    
+                    let senderText = NSAttributedString(
+                        string: "\(message.sender) :\n",
+                        attributes:[
+                            NSAttributedString.Key.foregroundColor: UIColor.darkGray,
+                            NSAttributedString.Key.font: UIFont(name: "Arial", size: 24.0) as Any
+                        ]
+                    )
+                    
+                    let messageText = NSAttributedString(
+                        string: message.content,
+                        attributes:[
+                            NSAttributedString.Key.font: UIFont(name: "Arial", size: 32.0) as Any
+                        ]
+                    )
+                    
+                    let cellText = NSMutableAttributedString()
+                    cellText.append(senderText)
+                    cellText.append(messageText)
+                    
+                    
+                    cell.textLabel!.attributedText = cellText
                 }
             })
             }
@@ -135,6 +155,16 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
         
         tableView.deselectRow(at: indexPath, animated: true)
         
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     
