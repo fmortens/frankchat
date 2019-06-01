@@ -165,7 +165,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         
         if let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect {
             
-            textFieldBottomConstraint.constant = -keyboardSize.height + 55
+            textFieldBottomConstraint.constant = -keyboardSize.height + 35
             
             UIView.animate(
                 withDuration: 0.2,

@@ -91,13 +91,11 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         if !contact.loggedIn {
-            cell.textLabel?.textColor = UIColor.red
             cell.textLabel?.font = UIFont(
                 descriptor: UIFontDescriptor().withSymbolicTraits([.traitItalic])!,
                 size: 17
             )
         } else {
-            cell.textLabel?.textColor = UIColor.green
             cell.textLabel?.font = UIFont(
                 descriptor: UIFontDescriptor().withSymbolicTraits([.traitBold])!,
                 size: 17

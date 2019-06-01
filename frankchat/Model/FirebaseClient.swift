@@ -48,9 +48,11 @@ class FirebaseClient {
                     }
                 }
                 
+                setActive()
                 completion(true)
                 
             } else {
+                setInactive()
                 completion(false)
             }
         }
@@ -76,6 +78,7 @@ class FirebaseClient {
             } else {
                 
                 do {
+                    setInactive()
                     try firebaseAuth.signOut()
                     completion(true)
                 } catch _ as NSError {

@@ -100,6 +100,9 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
                 }
             })
             
+        } else {
+            cell.textLabel!.text = "..."
+            cell.detailTextLabel!.text = "..."
         }
         
         return cell
