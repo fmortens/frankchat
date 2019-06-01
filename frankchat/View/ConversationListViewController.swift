@@ -55,7 +55,7 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
                 updated: change.document.data()["updated"] as? Timestamp
             )
             
-            self.conversations.insert(conversation, at: Int(change.newIndex))
+            self.conversations.append(conversation)
         
         case .modified:
             let conversation = Conversation(
@@ -65,6 +65,7 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
             )
             
             self.conversations[Int(change.oldIndex)] = conversation
+            
         case .removed:
             
             self.conversations.remove(at: Int(change.oldIndex))
@@ -74,21 +75,35 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
         }
         
         DispatchQueue.main.async {
+            self.sortConversations()
             self.chatListView.reloadData()
         }
         
     }
     
+    func sortConversations() {
+        
+        self.sortedConversations = self.conversations.sorted(by: { (conversation1, conversation2) -> Bool in
+            if let updated1 = conversation1.updated, let updated2 = conversation2.updated {
+                return updated1.seconds > updated2.seconds
+            } else {
+                return false
+            }
+        })
+        
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.conversations.count
+        return self.sortedConversations.count
         
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let conversation = sortedConversations[indexPath.row]
         
-        let conversation = conversations[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")!
         
         if let id = conversation.id {
@@ -114,7 +129,8 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.conversation = conversations[indexPath.row]
+        self.conversation = self.sortedConversations[indexPath.row]
+        
         self.performSegue(withIdentifier: "PresentChatView", sender: nil)
         
         tableView.deselectRow(at: indexPath, animated: true)

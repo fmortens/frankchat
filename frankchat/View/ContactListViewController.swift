@@ -15,12 +15,12 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var contactsTableView: UITableView!
     
     var contacts = [Contact]()
+    var filteredContacts = [Contact]()
     var selectedContact: Contact?
     
     override func viewDidLoad() {
         contactsTableView.dataSource = self
         contactsTableView.delegate = self
-        
         newChatButton.isEnabled = false
         
         FirebaseClient.monitorContactChanges(completion: handleContactListChanges(changeType:change:))
@@ -31,6 +31,11 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         contactsTableView.reloadData()
     }
     
+    func sortContacts() {
+        self.filteredContacts = self.contacts.filter({ (contact) -> Bool in
+            return contact.email != Auth.auth().currentUser!.email
+        })
+    }
     
     func handleContactListChanges(changeType: DocumentChangeType, change: DocumentChange) {
         if (changeType == .added) {
@@ -57,6 +62,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
             self.contacts.remove(at: Int(change.oldIndex))
         }
         
+        self.sortContacts()
         self.contactsTableView.reloadData()
     }
     
@@ -67,14 +73,14 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return contacts.count
+       return filteredContacts.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell")!
-        let contact = contacts[indexPath.row]
+        let contact = filteredContacts[indexPath.row]
         
         if let username = contact.username {
             cell.textLabel!.text = username
@@ -110,7 +116,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectedContact = contacts[indexPath.row]
+        self.selectedContact = filteredContacts[indexPath.row]
         self.newChatButton.isEnabled = true
     }
     
@@ -144,7 +150,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         self.newChatButton.isEnabled = false
         
         if let selectedIndexPath = contactsTableView.indexPathForSelectedRow {
-            self.selectedContact = contacts[selectedIndexPath.row]
+            self.selectedContact = filteredContacts[selectedIndexPath.row]
             self.performSegue(withIdentifier: "PresentChatView", sender: nil)
             self.contactsTableView.deselectRow(at: selectedIndexPath, animated: true)
         }
