@@ -45,8 +45,6 @@ class FirebaseClient {
                 ) { error in
                     if let error = error {
                         print("Error writing document: \(error)")
-                    } else {
-                        print("Document successfully written!")
                     }
                 }
                 
@@ -58,11 +56,7 @@ class FirebaseClient {
         }
     }
     
-    class func logout(
-        completion: @escaping (Bool) -> Void
-    ) {
-        
-        print("We want to log out")
+    class func logout( completion: @escaping (Bool) -> Void ) {
         
         let firebaseAuth = Auth.auth()
         let db = Firestore.firestore()
@@ -80,17 +74,11 @@ class FirebaseClient {
             if let error = error {
                 print("Error writing document: \(error)")
             } else {
-                print("Document successfully written!")
                 
                 do {
                     try firebaseAuth.signOut()
-                    
-                    // Remove observer
-                    
-                    
                     completion(true)
                 } catch let signOutError as NSError {
-                    print ("Error signing out: %@", signOutError)
                     completion(false)
                 }
             }
@@ -107,13 +95,11 @@ class FirebaseClient {
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
-        print("Adding snapshot listener (contacts)")
-        
         db
             .collection("contacts")
             .addSnapshotListener { querySnapshot, error in
                 guard let snapshot = querySnapshot else {
-                    print("Error fetching snapshots: \(error!)")
+                    // failure
                     return
                 }
                 
@@ -142,8 +128,6 @@ class FirebaseClient {
                     
                     if let error = error {
                         print("Error writing document: \(error)")
-                    } else {
-                        print("Document successfully written!")
                     }
             }
         }
@@ -167,8 +151,6 @@ class FirebaseClient {
                     
                     if let error = error {
                         print("Error writing document: \(error)")
-                    } else {
-                        print("Document successfully written!")
                     }
             }
         }
@@ -192,7 +174,7 @@ class FirebaseClient {
             .whereField("participants", arrayContains: Auth.auth().currentUser!.email! )
                     .addSnapshotListener { querySnapshot, error in
                         guard let snapshot = querySnapshot else {
-                            print("Error fetching snapshots: \(error!)")
+                            // Error fetching snapshots
                             return
                         }
                 
@@ -249,13 +231,11 @@ class FirebaseClient {
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
-        print("Adding snapshot listener (messages)")
-        
         let listener = db
             .collection("conversations").document(conversationId).collection("messages")
             .addSnapshotListener { querySnapshot, error in
                 guard let snapshot = querySnapshot else {
-                    print("Error fetching snapshots: \(error!)")
+                    // Error fetching snapshots
                     return
                 }
                 

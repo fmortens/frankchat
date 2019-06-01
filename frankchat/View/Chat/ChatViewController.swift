@@ -82,7 +82,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                         timestamp: timestamp as? Timestamp
                     )
                 
-                    print("Added new \(message), at: \(Int(change.newIndex))")
                     self.messages.insert(message, at: Int(change.newIndex))
                 }
             
@@ -93,9 +92,7 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                     sender: change.document.data()["sender"] as! String,
                     timestamp: change.document.data()["timestamp"] as? Timestamp
                 )
-            
-                print("Modified \(message), newIndex: \(Int(change.newIndex)), oldIndex: \(Int(change.oldIndex))")
-            
+                
                 self.messages[Int(change.oldIndex)] = message
             
             case .removed:
@@ -130,8 +127,6 @@ class ChatViewController: UIViewController, UITextFieldDelegate, UITableViewDele
 
             FirebaseClient.addMessage(conversation: conversation, messageToSend: messageToSend) { (success) in
                 if success ?? false {
-                    print("Success")
-                    
                     self.textField.text = ""
                     
                 } else {

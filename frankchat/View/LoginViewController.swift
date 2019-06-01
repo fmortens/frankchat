@@ -21,8 +21,6 @@ class LoginViewController: UIViewController {
         
             FirebaseClient.login(username: username, password: password) { (successful) in
                 if successful {
-                    print("Login successful")
-                    
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "UserLoggedIn", sender: nil)
                     }

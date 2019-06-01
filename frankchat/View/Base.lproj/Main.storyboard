@@ -48,7 +48,8 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WYJ-oq-HPg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.64807494060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.64807494060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="wIo-JA-crq" kind="relationship" relationship="viewControllers" id="Cos-Mi-4Vi"/>
@@ -93,7 +94,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.64807494056190984" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8Qi-Wh-UFX" secondAttribute="trailing" constant="64" id="Q60-Wp-BW3"/>
                             <constraint firstItem="8Qi-Wh-UFX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="64" id="fxt-fp-yUY"/>
@@ -190,7 +191,7 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="send"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.64807494060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="dJf-B1-LAe" firstAttribute="trailing" secondItem="ABb-el-tyF" secondAttribute="trailing" id="3IA-8L-tIC"/>
                             <constraint firstItem="dJf-B1-LAe" firstAttribute="top" secondItem="ABb-el-tyF" secondAttribute="top" id="XZm-9H-hkH"/>
@@ -265,10 +266,14 @@
         <scene sceneID="dmR-Rk-VJ8">
             <objects>
                 <navigationController id="wIo-JA-crq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" id="A1P-3J-R9e"/>
+                    <tabBarItem key="tabBarItem" title="Messages" id="A1P-3J-R9e">
+                        <color key="badgeColor" red="1" green="0.64807494060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cwj-f7-3ID">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="0.64807494060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.64807494060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="JNF-0A-gXW" kind="relationship" relationship="rootViewController" id="adZ-be-wGC"/>
@@ -286,6 +291,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fH9-Z1-1HI">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.64807494060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="eke-Er-8mV" kind="relationship" relationship="rootViewController" id="iqC-jA-FZX"/>
@@ -297,6 +303,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Cos-Mi-4Vi"/>
         <segue reference="FNR-VF-ov1"/>
         <segue reference="Rqe-eM-g8z"/>
         <segue reference="tbb-dX-sdc"/>

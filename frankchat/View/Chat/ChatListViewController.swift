@@ -55,7 +55,6 @@ class ChatListViewController: UIViewController, UITableViewDelegate, UITableView
                 updated: change.document.data()["updated"] as? Timestamp
             )
             
-            print("Added new \(conversation), at: \(Int(change.newIndex))")
             self.conversations.insert(conversation, at: Int(change.newIndex))
         
         case .modified:
