@@ -78,7 +78,7 @@ class FirebaseClient {
                 do {
                     try firebaseAuth.signOut()
                     completion(true)
-                } catch let signOutError as NSError {
+                } catch _ as NSError {
                     completion(false)
                 }
             }
@@ -265,5 +265,38 @@ class FirebaseClient {
             ])
         
         completion(documentRef.documentID)
+    }
+    
+    
+    class func getLatestMessageInConversation(
+        id: String,
+        completion: @escaping (Message?) -> Void
+    ) {
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        let documentsRef = db.collection("conversations").document(id).collection("messages").order(by: "timestamp", descending: true).limit(to: 1)
+        
+        documentsRef.getDocuments { (querySnapshot, error) in
+            if
+                let document = querySnapshot?.documents[0],
+                let content = document.get("content"),
+                let sender = document.get("sender"),
+                let timestamp = document.get("timestamp") {
+                
+                    let message = Message(
+                        content: content as! String,
+                        sender: sender as! String,
+                        timestamp: (timestamp as! Timestamp)
+                    )
+                
+                    completion(message)
+            } else {
+                completion(nil)
+            }
+        }
     }
 }
