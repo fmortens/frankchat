@@ -36,6 +36,9 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         )
         
         textField.delegate = self
+        textField.layer.borderWidth = 2
+        
+        hideKeyboardWhenTappedAround()
         
     }
     
@@ -194,7 +197,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         
         if let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect {
             
-            textFieldBottomConstraint.constant = -keyboardSize.height + 35
+            textFieldBottomConstraint.constant = -keyboardSize.height
             
             UIView.animate(
                 withDuration: 0.2,

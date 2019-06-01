@@ -21,6 +21,8 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         contactsTableView.dataSource = self
         contactsTableView.delegate = self
         
+        newChatButton.isEnabled = false
+        
         FirebaseClient.monitorContactChanges(completion: handleContactListChanges(changeType:change:))
     }
     
@@ -85,7 +87,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
             
             cell.textLabel?.font = UIFont(
                 descriptor: UIFontDescriptor().withSymbolicTraits([.traitBold])!,
-                size: 17
+                size: 24
             )
             
         }
@@ -93,12 +95,12 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
         if !contact.loggedIn {
             cell.textLabel?.font = UIFont(
                 descriptor: UIFontDescriptor().withSymbolicTraits([.traitItalic])!,
-                size: 17
+                size: 24
             )
         } else {
             cell.textLabel?.font = UIFont(
                 descriptor: UIFontDescriptor().withSymbolicTraits([.traitBold])!,
-                size: 17
+                size: 24
             )
         }
         
@@ -109,6 +111,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedContact = contacts[indexPath.row]
+        self.newChatButton.isEnabled = true
     }
     
     
@@ -138,6 +141,8 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     @IBAction func NewChatButtonTapped(_ sender: Any) {
+        self.newChatButton.isEnabled = false
+        
         if let selectedIndexPath = contactsTableView.indexPathForSelectedRow {
             self.selectedContact = contacts[selectedIndexPath.row]
             self.performSegue(withIdentifier: "PresentChatView", sender: nil)
