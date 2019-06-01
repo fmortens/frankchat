@@ -26,6 +26,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.transform = CGAffineTransform (scaleX: 1,y: -1)
         
         FirebaseClient.monitorMessagesChanges(
             conversationId: (conversation?.id!)!,
@@ -34,6 +35,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         )
         
         textField.delegate = self
+        
     }
     
     
@@ -107,13 +109,13 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
             self.tableView.layoutIfNeeded()
             
             // Scroll down messages list to be able to converse
-            self.tableView.setContentOffset(
-                CGPoint(
-                    x: 0,
-                    y: self.tableView.contentSize.height - self.tableView.frame.height
-                ),
-                animated: false
-            )
+//            self.tableView.setContentOffset(
+//                CGPoint(
+//                    x: 0,
+//                    y: self.tableView.contentSize.height - self.tableView.frame.height
+//                ),
+//                animated: false
+//            )
         }
         
     }
@@ -148,7 +150,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         let message = messages.sorted(by: { (message1, message2) -> Bool in
             if let timestamp1 = message1.timestamp,
                 let timestamp2 = message2.timestamp {
-                return timestamp1.seconds < timestamp2.seconds
+                return timestamp1.seconds > timestamp2.seconds
             } else {
                 return false
             }
@@ -157,6 +159,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")!
         
         cell.textLabel!.text = message.content
+        cell.contentView.transform = CGAffineTransform (scaleX: 1, y: -1)
         
         return cell
     }
