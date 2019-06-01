@@ -16,15 +16,16 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
     var messages = [Message]()
     var listener: ListenerRegistration?
     
-    @IBOutlet weak var chatTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textFieldBottomConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        chatTableView.dataSource = self
-        chatTableView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
         
         FirebaseClient.monitorMessagesChanges(
             conversationId: (conversation?.id!)!,
@@ -32,38 +33,36 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
             registerListener: handleListener
         )
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-        
-        self.view.addGestureRecognizer(
-            UITapGestureRecognizer(
-                target: self.view,
-                action: #selector(UIView.endEditing(_:))
-            )
-        )
-        
         textField.delegate = self
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        registerNotifications()
+    }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         self.listener!.remove()
+        unregisterNotifications()
     }
     
     func handleListener(listener: ListenerRegistration) {
         self.listener = listener
+    }
+    
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func unregisterNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func handleMessagesChanges(changeType: DocumentChangeType, change: DocumentChange) {
@@ -104,14 +103,14 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         }
         
         DispatchQueue.main.async {
-            self.chatTableView.reloadData()
-            self.chatTableView.layoutIfNeeded()
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
             
             // Scroll down messages list to be able to converse
-            self.chatTableView.setContentOffset(
+            self.tableView.setContentOffset(
                 CGPoint(
                     x: 0,
-                    y: self.chatTableView.contentSize.height - self.chatTableView.frame.height
+                    y: self.tableView.contentSize.height - self.tableView.frame.height
                 ),
                 animated: false
             )
@@ -162,18 +161,41 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         return cell
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
+    @objc func keyboardWillShow(notification: NSNotification){
+        
+        if let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect {
+            
+            textFieldBottomConstraint.constant = -keyboardSize.height + 55
+            
+            UIView.animate(
+                withDuration: 0.2,
+                delay: 0,
+                options: .transitionCurlDown,
+                animations: {
+                    self.view.layoutIfNeeded()
+                },
+                completion: nil
+            )
+            
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
+        
+            textFieldBottomConstraint.constant = 0
+            
+            UIView.animate(
+                withDuration: 0.2,
+                delay: 0,
+                options: .transitionCurlDown,
+                animations: {
+                    self.view.layoutIfNeeded()
+                },
+                completion: nil
+            )
+            
+            
+        
     }
     
 }

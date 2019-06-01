@@ -177,7 +177,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dJf-B1-LAe">
-                                <rect key="frame" x="0.0" y="44" width="414" height="788"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="670"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" id="js4-lt-fNz">
@@ -190,33 +190,38 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hSd-z8-usA" userLabel="Text Field">
-                                <rect key="frame" x="0.0" y="832" width="414" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hSd-z8-usA" userLabel="Text Field">
+                                <rect key="frame" x="0.0" y="758" width="414" height="55"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="xjF-O3-IU6"/>
+                                </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="send"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.64807494060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="dJf-B1-LAe" firstAttribute="trailing" secondItem="ABb-el-tyF" secondAttribute="trailing" id="3IA-8L-tIC"/>
+                            <constraint firstItem="hSd-z8-usA" firstAttribute="trailing" secondItem="ABb-el-tyF" secondAttribute="trailing" id="EA0-rC-e7f"/>
+                            <constraint firstItem="hSd-z8-usA" firstAttribute="top" secondItem="dJf-B1-LAe" secondAttribute="bottom" id="Uss-JH-UUj"/>
                             <constraint firstItem="dJf-B1-LAe" firstAttribute="top" secondItem="ABb-el-tyF" secondAttribute="top" id="XZm-9H-hkH"/>
-                            <constraint firstItem="hSd-z8-usA" firstAttribute="top" secondItem="dJf-B1-LAe" secondAttribute="bottom" id="bAv-ee-VWC"/>
                             <constraint firstItem="dJf-B1-LAe" firstAttribute="leading" secondItem="ABb-el-tyF" secondAttribute="leading" id="eoy-FK-Ltq"/>
-                            <constraint firstItem="hSd-z8-usA" firstAttribute="bottom" secondItem="ABb-el-tyF" secondAttribute="bottom" id="gKl-SZ-Pmh"/>
-                            <constraint firstItem="hSd-z8-usA" firstAttribute="leading" secondItem="ABb-el-tyF" secondAttribute="leading" id="lj1-xM-Nhf"/>
-                            <constraint firstItem="ABb-el-tyF" firstAttribute="trailing" secondItem="hSd-z8-usA" secondAttribute="trailing" id="v3w-s2-7ry"/>
+                            <constraint firstItem="hSd-z8-usA" firstAttribute="leading" secondItem="ABb-el-tyF" secondAttribute="leading" id="jEe-2E-LpM"/>
+                            <constraint firstItem="hSd-z8-usA" firstAttribute="bottom" secondItem="ABb-el-tyF" secondAttribute="bottom" id="lQV-JR-OkF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ABb-el-tyF"/>
                     </view>
                     <connections>
-                        <outlet property="chatTableView" destination="dJf-B1-LAe" id="UBY-fW-GQ3"/>
+                        <outlet property="tableView" destination="dJf-B1-LAe" id="UBY-fW-GQ3"/>
                         <outlet property="textField" destination="hSd-z8-usA" id="hNO-eP-DUF"/>
+                        <outlet property="textFieldBottomConstraint" destination="lQV-JR-OkF" id="UKm-CI-6X4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hmz-BY-Rqu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1645" y="-465"/>
+            <point key="canvasLocation" x="-1646.376811594203" y="-465.40178571428567"/>
         </scene>
         <!--Message List-->
         <scene sceneID="cXu-IO-TFw">
