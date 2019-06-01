@@ -93,12 +93,14 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
         
         if let id = conversation.id {
             
+            DispatchQueue.main.async {
             FirebaseClient.getLatestMessageInConversation(id: id, completion: { (message) in
                 if let message = message {
                     cell.textLabel!.text = message.content
                     cell.detailTextLabel!.text = message.sender
                 }
             })
+            }
             
         } else {
             cell.textLabel!.text = "..."

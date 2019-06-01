@@ -38,9 +38,7 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
                 loggedIn: (change.document.data()["logged_in"] as? Bool)!
             )
             
-            if contact.email != Auth.auth().currentUser!.email {
-                self.contacts.append(contact)
-            }
+            self.contacts.append(contact)
         }
         
         if (changeType == .modified) {
@@ -50,15 +48,11 @@ class ContactListViewController: UIViewController, UITableViewDelegate, UITableV
                 loggedIn: (change.document.data()["logged_in"] as? Bool)!
             )
             
-            if contact.email != Auth.auth().currentUser!.email {
-                self.contacts[Int(change.newIndex)] = contact
-            }
+            self.contacts[Int(change.newIndex)] = contact
         }
         
         if (changeType == .removed) {
-            if change.document.data()["username"] as? String != Auth.auth().currentUser!.email {
-                self.contacts.remove(at: Int(change.oldIndex))
-            }
+            self.contacts.remove(at: Int(change.oldIndex))
         }
         
         self.contactsTableView.reloadData()

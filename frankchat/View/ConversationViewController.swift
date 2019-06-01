@@ -14,6 +14,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
     
     var conversation: Conversation?
     var messages = [Message]()
+    var sortedMessages = [Message]()
     var listener: ListenerRegistration?
     
     @IBOutlet weak var tableView: UITableView!
@@ -84,6 +85,20 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
                     )
                 
                     self.messages.insert(message, at: Int(change.newIndex))
+                    
+                    DispatchQueue.main.async {
+                    self.sortedMessages = self.messages.sorted(by: { (message1, message2) -> Bool in
+                        if
+                            let timestamp1 = message1.timestamp,
+                            let timestamp2 = message2.timestamp {
+                            
+                            return timestamp1.seconds > timestamp2.seconds
+                            
+                        } else {
+                            return false
+                        }
+                    })
+                    }
                 }
             
             case .modified:
@@ -95,10 +110,38 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
                 )
                 
                 self.messages[Int(change.oldIndex)] = message
+                
+                DispatchQueue.main.async {
+                self.sortedMessages = self.messages.sorted(by: { (message1, message2) -> Bool in
+                    if
+                        let timestamp1 = message1.timestamp,
+                        let timestamp2 = message2.timestamp {
+                        
+                        return timestamp1.seconds > timestamp2.seconds
+                        
+                    } else {
+                        return false
+                    }
+                })
+            }
             
             case .removed:
         
                 self.messages.remove(at: Int(change.oldIndex))
+                
+                DispatchQueue.main.async {
+                self.sortedMessages = self.messages.sorted(by: { (message1, message2) -> Bool in
+                    if
+                        let timestamp1 = message1.timestamp,
+                        let timestamp2 = message2.timestamp {
+                        
+                        return timestamp1.seconds > timestamp2.seconds
+                        
+                    } else {
+                        return false
+                    }
+                })
+            }
         
             default:
                 print("Unknown message change")
@@ -107,22 +150,12 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.tableView.layoutIfNeeded()
-            
-            // Scroll down messages list to be able to converse
-//            self.tableView.setContentOffset(
-//                CGPoint(
-//                    x: 0,
-//                    y: self.tableView.contentSize.height - self.tableView.frame.height
-//                ),
-//                animated: false
-//            )
         }
         
     }
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
         
         if let conversation = self.conversation, let messageToSend = self.textField.text {
 
@@ -147,15 +180,8 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let message = messages.sorted(by: { (message1, message2) -> Bool in
-            if let timestamp1 = message1.timestamp,
-                let timestamp2 = message2.timestamp {
-                return timestamp1.seconds > timestamp2.seconds
-            } else {
-                return false
-            }
-        })[indexPath.row]
         
+        let message = sortedMessages[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell")!
         
         cell.textLabel!.text = message.content
