@@ -89,6 +89,27 @@ class FirebaseClient {
         
     }
     
+    
+    class func register(
+        email: String,
+        password: String,
+        completion: @escaping (Bool?, FirebaseError?) -> Void
+    ) {
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            
+            if user != nil {
+                completion(true, nil)
+            }
+            
+            if error != nil {
+                completion(false, FirebaseError.usernameExist)
+            }
+        }
+
+    }
+    
+    
     class func monitorContactChanges(
         completion: @escaping (DocumentChangeType, DocumentChange) -> Void) {
         

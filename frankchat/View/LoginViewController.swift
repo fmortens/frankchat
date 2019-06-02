@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
     
+    @IBOutlet weak var registerButton: UIButton!
     
     override func viewDidLoad() {
         loginButton.layer.cornerRadius = 5
@@ -45,5 +46,14 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func registerButtonPressed(_ sender: Any) {
+        
+        print("Register button pressed")
+        
+        self.performSegue(withIdentifier: "presentRegisterScreen", sender: nil)
+        
+    }
+    
     
 }

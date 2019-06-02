@@ -30,6 +30,8 @@
 		DE9E50BB229480A200E3AA71 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9E50BA229480A200E3AA71 /* Message.swift */; };
 		DEB5838A2287111A00B86A36 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB583892287111A00B86A36 /* FirebaseClient.swift */; };
 		DEF3179F22A315E8005A23D9 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF3179E22A315E8005A23D9 /* UIViewControllerExtension.swift */; };
+		DEF7082622A41A5500562F5A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF7082522A41A5500562F5A /* RegisterViewController.swift */; };
+		DEF7082822A42DBB00562F5A /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF7082722A42DBB00562F5A /* FirebaseError.swift */; };
 		DEFE7D2822985A5C00E2B2A0 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE7D2722985A5C00E2B2A0 /* ConversationViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +63,8 @@
 		DE9E50BA229480A200E3AA71 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		DEB583892287111A00B86A36 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		DEF3179E22A315E8005A23D9 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		DEF7082522A41A5500562F5A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		DEF7082722A42DBB00562F5A /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		DEFE7D2722985A5C00E2B2A0 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +147,7 @@
 			children = (
 				DE429CCD228759200004D31F /* StartupViewController.swift */,
 				DE41439D228700E6009914CE /* LoginViewController.swift */,
+				DEF7082522A41A5500562F5A /* RegisterViewController.swift */,
 				DE429CD3228842F60004D31F /* ContactListViewController.swift */,
 				DE429CCF22875A2E0004D31F /* ConversationListViewController.swift */,
 				DEFE7D2722985A5C00E2B2A0 /* ConversationViewController.swift */,
@@ -167,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				DEB583892287111A00B86A36 /* FirebaseClient.swift */,
+				DEF7082722A42DBB00562F5A /* FirebaseError.swift */,
 				DE5A9FE5228F3D04000F2480 /* Contact.swift */,
 				DE9E50BA229480A200E3AA71 /* Message.swift */,
 				DE1DECEA22999BA600F996E0 /* Conversation.swift */,
@@ -334,9 +340,11 @@
 				DE5A9FE6228F3D04000F2480 /* Contact.swift in Sources */,
 				DE429CCE228759200004D31F /* StartupViewController.swift in Sources */,
 				DE41439E228700E6009914CE /* LoginViewController.swift in Sources */,
+				DEF7082622A41A5500562F5A /* RegisterViewController.swift in Sources */,
 				DE1DECEB22999BA600F996E0 /* Conversation.swift in Sources */,
 				DE41439C228700E6009914CE /* AppDelegate.swift in Sources */,
 				DEB5838A2287111A00B86A36 /* FirebaseClient.swift in Sources */,
+				DEF7082822A42DBB00562F5A /* FirebaseError.swift in Sources */,
 				DE9E50BB229480A200E3AA71 /* Message.swift in Sources */,
 				DE429CD022875A2E0004D31F /* ConversationListViewController.swift in Sources */,
 				DEFE7D2822985A5C00E2B2A0 /* ConversationViewController.swift in Sources */,

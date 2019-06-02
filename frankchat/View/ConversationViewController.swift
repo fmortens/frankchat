@@ -194,7 +194,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
         
-        cell.textLabel!.text = "\(dateFormatter.string(from: message.timestamp!.dateValue()) )\n\(message.sender):\n\(message.content)"
+        cell.textLabel!.text = "\(dateFormatter.string(from: message.timestamp?.dateValue() ?? Date()) )\n\(message.sender):\n\(message.content)"
         cell.contentView.transform = CGAffineTransform (scaleX: 1, y: -1)
         
         return cell
