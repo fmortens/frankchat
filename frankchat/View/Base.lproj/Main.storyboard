@@ -69,32 +69,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Qg1-wU-1x9">
-                                <rect key="frame" x="64" y="258.5" width="286" height="379"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Qg1-wU-1x9">
+                                <rect key="frame" x="64" y="292" width="286" height="312.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fDH-P9-WQg" userLabel="EmailTextField">
-                                        <rect key="frame" x="0.0" y="0.0" width="286" height="63"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="286" height="55"/>
                                         <color key="backgroundColor" red="1" green="0.95550461740000003" blue="0.52164519799999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="CkR-V8-gn7"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                         <textInputTraits key="textInputTraits" textContentType="username"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HGT-pY-Wqg" userLabel="PasswordTextField">
-                                        <rect key="frame" x="0.0" y="79" width="286" height="63"/>
+                                        <rect key="frame" x="0.0" y="71" width="286" height="55"/>
                                         <color key="backgroundColor" red="1" green="0.95550461740000003" blue="0.52164519799999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="h0l-PG-Lz7"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCq-1f-iXO">
-                                        <rect key="frame" x="0.0" y="158" width="286" height="63"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCq-1f-iXO">
+                                        <rect key="frame" x="0.0" y="142" width="286" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apk-HT-5k1" userLabel="RegisterButton">
-                                        <rect key="frame" x="0.0" y="237" width="286" height="63"/>
+                                        <rect key="frame" x="0.0" y="184.5" width="286" height="63"/>
                                         <color key="backgroundColor" red="1" green="0.48514735489999999" blue="0.19270586880000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="63" id="d6e-Cc-ESl"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                         <state key="normal" title="Register">
                                             <color key="titleColor" red="1" green="0.95550461740000003" blue="0.52164519799999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -105,7 +114,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IkY-ar-kbt" userLabel="CancelButton">
-                                        <rect key="frame" x="0.0" y="316" width="286" height="63"/>
+                                        <rect key="frame" x="0.0" y="263.5" width="286" height="49"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="sOe-vx-IvZ"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
