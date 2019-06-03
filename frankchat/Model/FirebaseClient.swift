@@ -33,9 +33,6 @@ class FirebaseClient {
                 // so we can list the active users
                 
                 let db = Firestore.firestore()
-                let settings = db.settings
-                settings.areTimestampsInSnapshotsEnabled = true
-                db.settings = settings
                 
                 let contactsRef = db.collection("contacts")
                 
@@ -62,10 +59,6 @@ class FirebaseClient {
         
         let firebaseAuth = Auth.auth()
         let db = Firestore.firestore()
-        
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
         
         let contactsRef = db.collection("contacts")
         
@@ -114,10 +107,6 @@ class FirebaseClient {
         completion: @escaping (DocumentChangeType, DocumentChange) -> Void) {
         
         let db = Firestore.firestore()
-        let settings = db.settings
-        
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
         
         db
             .collection("contacts")
@@ -138,10 +127,6 @@ class FirebaseClient {
     class func setActive() {
         
         let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
-        
         
         if let authenticatedUser = Auth.auth().currentUser {
             let contactsRef = db.collection("contacts")
@@ -162,9 +147,6 @@ class FirebaseClient {
     class func setInactive() {
         
         let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
         
         if let authenticatedUser = Auth.auth().currentUser {
             let contactsRef = db.collection("contacts")
@@ -189,9 +171,6 @@ class FirebaseClient {
     ) {
         
         let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
         
         let listener = db
             .collection("conversations")
@@ -214,11 +193,6 @@ class FirebaseClient {
     class func addMessage(conversation: Conversation, messageToSend: String, completion: @escaping (Bool?) -> Void) {
         
         let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
-        
-        
         
         if conversation.id != nil {
             let conversationsRef = db.collection("conversations").document(conversation.id!)
@@ -227,7 +201,7 @@ class FirebaseClient {
                 data: [
                     "content": messageToSend,
                     "sender": Auth.auth().currentUser?.email as Any,
-                    "timestamp": FieldValue.serverTimestamp()
+                    "timestamp": Timestamp(date: Date())
                 ])
             
             conversationsRef.updateData([
@@ -251,9 +225,6 @@ class FirebaseClient {
     ) {
         
         let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
         
         let listener = db
             .collection("conversations").document(conversationId).collection("messages")
@@ -278,9 +249,6 @@ class FirebaseClient {
     ) {
         
         let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
         
         let documentRef = db.collection("conversations").addDocument(
             data: [
@@ -298,15 +266,24 @@ class FirebaseClient {
     ) {
         
         let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
         
         let documentsRef = db.collection("conversations").document(id).collection("messages").order(by: "timestamp", descending: true).limit(to: 1)
         
         documentsRef.getDocuments { (querySnapshot, error) in
+            
+            guard let querySnapshot = querySnapshot else {
+                completion(nil)
+                return
+            }
+            
+            if querySnapshot.documents.count == 0 {
+                completion(nil)
+                return
+            }
+            
+            let document = querySnapshot.documents[0]
+            
             if
-                let document = querySnapshot?.documents[0],
                 let content = document.get("content"),
                 let sender = document.get("sender"),
                 let timestamp = document.get("timestamp") {
