@@ -13,6 +13,8 @@ class StartupViewController: UIViewController {
     
     override func viewDidLoad() {
         
+        super.viewDidLoad()
+        
         if Auth.auth().currentUser == nil {
             DispatchQueue.main.async {
                 self.performSegue(

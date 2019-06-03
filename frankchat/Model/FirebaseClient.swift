@@ -37,7 +37,7 @@ class FirebaseClient {
                 let contactsRef = db.collection("contacts")
                 
                 contactsRef.document(email).setData(
-                    ["last_login": FieldValue.serverTimestamp()],
+                    ["last_login": FieldValue.serverTimestamp()], // Using server timestamp here, but I might change this
                     merge: true
                 ) { error in
                     if let error = error {
@@ -267,16 +267,22 @@ class FirebaseClient {
         
         let db = Firestore.firestore()
         
-        let documentsRef = db.collection("conversations").document(id).collection("messages").order(by: "timestamp", descending: true).limit(to: 1)
+        let documentsRef = db.collection("conversations")
+            .document(id)
+            .collection("messages")
+            .order(by: "timestamp", descending: true)
+            .limit(to: 1)
         
         documentsRef.getDocuments { (querySnapshot, error) in
             
             guard let querySnapshot = querySnapshot else {
+                print("Could not get snapshot \(String(describing: error))")
                 completion(nil)
                 return
             }
             
             if querySnapshot.documents.count == 0 {
+                print("\(id) No messages")
                 completion(nil)
                 return
             }
@@ -293,9 +299,10 @@ class FirebaseClient {
                         sender: sender as! String,
                         timestamp: (timestamp as! Timestamp)
                     )
-                
+                print("\(id) message found")
                     completion(message)
             } else {
+                print("Something is missing")
                 completion(nil)
             }
         }

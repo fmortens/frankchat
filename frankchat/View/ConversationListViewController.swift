@@ -25,18 +25,19 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
         chatListView.dataSource = self
         chatListView.delegate = self
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         if listener == nil {
             FirebaseClient.monitorConversationChanges(
                 completion: handleChatChanges,
                 registerListener: handleListener
             )
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
         
-        //self.listener!.remove()
+        chatListView.reloadData()
     }
     
     
@@ -74,11 +75,11 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
             print("Unknown modification")
         }
         
+        self.sortConversations()
+        
         DispatchQueue.main.async {
-            self.sortConversations()
             self.chatListView.reloadData()
         }
-        
     }
     
     func sortConversations() {
@@ -108,7 +109,6 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
         
         if let id = conversation.id {
             
-            DispatchQueue.main.async {
             FirebaseClient.getLatestMessageInConversation(id: id, completion: { (message) in
                 if let message = message {
                     
@@ -131,16 +131,32 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
                     cellText.append(senderText)
                     cellText.append(messageText)
                     
+                    cell.textLabel!.attributedText = cellText
+                } else {
+                    
+                    let cellText = NSAttributedString(
+                        string: "No content",
+                        attributes:[
+                            NSAttributedString.Key.font: UIFont(name: "Arial", size: 32.0) as Any
+                        ]
+                    )
                     
                     cell.textLabel!.attributedText = cellText
+                    
                 }
+                
             })
-            }
             
-        } else {
-            cell.textLabel!.text = "..."
-            cell.detailTextLabel!.text = "..."
         }
+        
+        let loadingText = NSAttributedString(
+            string: "...",
+            attributes:[
+                NSAttributedString.Key.font: UIFont(name: "Arial", size: 48.0) as Any
+            ]
+        )
+        
+        cell.textLabel!.attributedText = loadingText
         
         return cell
         
@@ -155,16 +171,6 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
     }
     
     
