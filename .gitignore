@@ -82,7 +82,7 @@ fastlane/test_output
 iOSInjectionProject/
 
 # Ignore firestore config
-GoogleService-Info.plist
+# GoogleService-Info.plist
 
 # Ignore .DS_Store
 .DS_Store
