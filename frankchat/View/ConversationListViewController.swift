@@ -17,7 +17,7 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
     
     var conversations = [Conversation]()
     var sortedConversations = [Conversation]()
-    var conversation: Conversation?
+    var selectedConversation: Conversation?
     var listener: ListenerRegistration?
     
     override func viewDidLoad() {
@@ -37,7 +37,8 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
             )
         }
         
-        chatListView.reloadData()
+        self.sortConversations()
+        
     }
     
     
@@ -77,9 +78,6 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
         
         self.sortConversations()
         
-        DispatchQueue.main.async {
-            self.chatListView.reloadData()
-        }
     }
     
     func sortConversations() {
@@ -91,6 +89,10 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
                 return false
             }
         })
+        
+        DispatchQueue.main.async {
+            self.chatListView.reloadData()
+        }
         
     }
     
@@ -165,7 +167,7 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.conversation = self.sortedConversations[indexPath.row]
+        self.selectedConversation = self.sortedConversations[indexPath.row]
         
         self.performSegue(withIdentifier: "PresentChatView", sender: nil)
         
@@ -177,7 +179,7 @@ class ConversationListViewController: UIViewController, UITableViewDelegate, UIT
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let vc = segue.destination as? ConversationViewController {
-            vc.conversation = self.conversation
+            vc.conversation = self.selectedConversation
         }
         
     }
