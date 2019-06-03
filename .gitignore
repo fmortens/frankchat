@@ -83,3 +83,6 @@ iOSInjectionProject/
 
 # Ignore firestore config
 GoogleService-Info.plist
+
+# Ignore .DS_Store
+.DS_Store
