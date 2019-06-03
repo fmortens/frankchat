@@ -15,6 +15,14 @@ The project contains a podfile so in theory all you need at this point is to run
 
 `pod install`
 
+## Testing
+
+For testing the app I have created two test users:
+
+`test1@test.com / password`
+
+`test2@test.com / password`
+
 ## Licence
 
 Feel free to play around with the code, no worries. Note: I will at some point remove the backend, so if you use it you should set up your own project at firebase.
