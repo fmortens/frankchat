@@ -212,24 +212,24 @@ class ConversationViewController: UIViewController, UITextFieldDelegate, UITable
     }
     
     
-    @objc func keyboardWillShow(notification: NSNotification){
+    @objc func keyboardWillShow(notification: NSNotification) {
         
-        if let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect {
+        let keyboardFrame: CGRect = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
             
-            textFieldBottomConstraint.constant = -keyboardSize.height
+        textFieldBottomConstraint.constant = -keyboardFrame.height + view.safeAreaInsets.bottom
             
-            UIView.animate(
-                withDuration: 0.2,
-                delay: 0,
-                options: .transitionCurlDown,
-                animations: {
-                    self.view.layoutIfNeeded()
-                },
-                completion: nil
-            )
-            
-        }
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: .transitionCurlDown,
+            animations: {
+                self.view.layoutIfNeeded()
+            },
+            completion: nil
+        )
+        
     }
+    
     
     @objc func keyboardWillHide(notification: NSNotification) {
         
