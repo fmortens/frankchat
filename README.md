@@ -2,6 +2,8 @@
 
 so this is a very limited chat application just to show how swift and Firestore can be used.
 
+NOTE: I have disabled the firebase backend, but will add instructions on how to create one later.
+
 ### Requirements
 
 - Xcode
